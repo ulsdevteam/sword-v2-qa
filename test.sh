@@ -6,14 +6,13 @@ function sword_request {
 	curl $SWORD_CURL_OPTS -s -D $SWORD_OUTPUT/$2.headers -o $SWORD_OUTPUT/$2.out \
 		--request $3 \
 		--url $SWORD_ENDPOINT/$1 \
-		--header 'Content-Type: application/xml' \
 		$SWORD_CURL_AUTH_KEY "$SWORD_CURL_AUTH_VAL" \
 		$SWORD_POST_HEADER_KEY1 "$SWORD_POST_HEADER_VAL1" \
 		$SWORD_POST_HEADER_KEY2 "$SWORD_POST_HEADER_VAL2" \
 		$SWORD_POST_HEADER_KEY2 "$SWORD_POST_HEADER_VAL2" \
 		$SWORD_POST_FILE_KEY "$SWORD_POST_FILE_VAL" 
-	SWORD_HTTP_CODE=`head -1 $SWORD_OUTPUT/service_document.headers`
-	if [ `echo $SWORD_HTTP_CODE | cut -d' ' -f2 | cut -c 1` != "2" ]
+	SWORD_HTTP_CODE=`head -1 $SWORD_OUTPUT/$2.headers`
+	if [ ""`echo $SWORD_HTTP_CODE | cut -d' ' -f2 | cut -c 1` != "2" ]
 	then
 		>&2 echo ... returned $SWORD_HTTP_CODE
 		exit 2
@@ -29,10 +28,10 @@ function sword_request {
 function sword_get {
 	SWORD_POST_FILE_KEY=
 	SWORD_POST_FILE_VAL=
-	SWORD_POST_HEADER_KEY1=
+	SWORD_POST_HEADER_KEY1='--header'
 	SWORD_POST_HEADER_KEY2=
 	SWORD_POST_HEADER_KEY3=
-	SWORD_POST_HEADER_VAL1=
+	SWORD_POST_HEADER_VAL1='Content-type: application/xml'
 	SWORD_POST_HEADER_VAL2=
 	SWORD_POST_HEADER_VAL3=
 	sword_request $1 $2 GET
@@ -122,6 +121,7 @@ do
 		SWORD_OUTFILE=metadata-only
 		sword_post collections/$SWORD_CURRENT/works/ $SWORD_OUTFILE \
 			'--data-binary' "@${m}" \
+			'Content-type: application/xml' \
 			'Content-Disposition: attachment; filename=metadata.xml' \
 			'Packaging: application/atom+xml;type=entry'
 		# What URI was created for this work?
@@ -144,12 +144,13 @@ do
 		# Try file deposit
 		for f in `dirname $m`/files/*
 		do
-			SWORD_OUTPUT=file-deposit
+			HTTPFILENAME=$(basename "$f" | sed 's/\\/\\\\/g' | sed 's/"/\\"/g')
+			SWORD_OUTFILE=file-deposit
 			sword_post $SWORD_URI $SWORD_OUTFILE \
 			'--data-binary' "@${f}" \
+			'Content-type: '`file --brief --mime "$f" | cut -d';' -f1` \
 			'Packaging: http://purl.org/net/sword/package/Binary' \
-			'Content-Disposition: attachment; filename='`basename $f` \
-			'Content-type: '`file --brief --mime $f | cut -d';' -f1`
+			"Content-Disposition: attachment; filename=\"${HTTPFILENAME}\""
 		done
 		# Try updates
 	done
