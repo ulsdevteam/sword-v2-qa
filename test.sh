@@ -10,17 +10,22 @@ function sword_request {
 		$SWORD_POST_HEADER_KEY1 "$SWORD_POST_HEADER_VAL1" \
 		$SWORD_POST_HEADER_KEY2 "$SWORD_POST_HEADER_VAL2" \
 		$SWORD_POST_HEADER_KEY2 "$SWORD_POST_HEADER_VAL2" \
-		$SWORD_POST_FILE_KEY "$SWORD_POST_FILE_VAL" 
+		$SWORD_POST_FILE_KEY "$SWORD_POST_FILE_VAL"
 	SWORD_HTTP_CODE=`head -1 $SWORD_OUTPUT/$2.headers`
 	if [ ""`echo $SWORD_HTTP_CODE | cut -d' ' -f2 | cut -c 1` != "2" ]
 	then
 		>&2 echo ... returned $SWORD_HTTP_CODE
 		exit 2
 	fi
-	xmllint --noout --nowarning $SWORD_OUTPUT/$2.out
+	xmllint --noout --nowarning $SWORD_OUTPUT/$2.out 2> $SWORD_OUTPUT/xmllint.err
 	if [ $? -ne 0 ]
 	then
 		>&2 echo ... $2 not valid
+		exit 2
+	fi
+	if [ ! -z $SWORD_OUTPUT/xmllint.err  ]
+	then
+		>&2 echo ... $2 had XML warnings
 		exit 2
 	fi
 }
@@ -37,7 +42,8 @@ function sword_get {
 	sword_request $1 $2 GET
 }
 
-function sword_post {
+function sword_pxxx {
+	HTTP_METHOD=$1; shift
 	SWORD_POST_FILE_KEY=$3
 	SWORD_POST_FILE_VAL=$4
 	SWORD_POST_HEADER_KEY1=
@@ -58,10 +64,18 @@ function sword_post {
 	SWORD_POST_HEADER_VAL1=$5
 	SWORD_POST_HEADER_VAL2=$6
 	SWORD_POST_HEADER_VAL3=$7
-	sword_request $1 $2 POST
+	sword_request $1 $2 $HTTP_METHOD
 }
 
-# Sanity check the confug
+function sword_post {
+	sword_pxxx POST "$@"
+}
+
+function sword_put {
+	sword_pxxx PUT "$@"
+}
+
+# Sanity check the config
 if [ -e .env ]
 then
 	source .env
@@ -125,18 +139,18 @@ do
 			'Content-Disposition: attachment; filename=metadata.xml' \
 			'Packaging: application/atom+xml;type=entry'
 		# What URI was created for this work?
-		SWORD_URI=`xsltproc get-src-link.xsl $SWORD_OUTPUT/$SWORD_OUTFILE.out | sed "s|$SWORD_ENDPOINT/||"`
-		if [ "$SWORD_URI" = "" ]
+		SWORD_WORK_URI=`xsltproc get-src-link.xsl $SWORD_OUTPUT/$SWORD_OUTFILE.out | sed "s|$SWORD_ENDPOINT/||"`
+		if [ "$SWORD_WORK_URI" = "" ]
 		then
 			>&2 echo ... Resulting link src not found
 			exit 4
 		fi
 		# Try get work
 		SWORD_OUTFILE=metadata-returned
-		sword_get $SWORD_URI $SWORD_OUTFILE
+		sword_get $SWORD_WORK_URI $SWORD_OUTFILE
 		# What URI was created for the files?
-		SWORD_URI=`xsltproc get-edit-link.xsl $SWORD_OUTPUT/$SWORD_OUTFILE.out | sed "s|$SWORD_ENDPOINT/||"`
-		if [ "$SWORD_URI" = "" ]
+		SWORD_FILES_URI=`xsltproc get-edit-link.xsl $SWORD_OUTPUT/$SWORD_OUTFILE.out | sed "s|$SWORD_ENDPOINT/||"`
+		if [ "$SWORD_FILES_URI" = "" ]
 		then
 			>&2 echo ... Resulting link edit not found
 			exit 4
@@ -146,13 +160,23 @@ do
 		do
 			HTTPFILENAME=$(basename "$f" | sed 's/\\/\\\\/g' | sed 's/"/\\"/g')
 			SWORD_OUTFILE=file-deposit
-			sword_post $SWORD_URI $SWORD_OUTFILE \
+			sword_post $SWORD_FILES_URI $SWORD_OUTFILE \
 			'--data-binary' "@${f}" \
 			'Content-type: '`file --brief --mime "$f" | cut -d';' -f1` \
 			'Packaging: http://purl.org/net/sword/package/Binary' \
 			"Content-Disposition: attachment; filename=\"${HTTPFILENAME}\""
 		done
 		# Try updates
+		UPDATEFILE=`dirname $m`/update.xml
+		if [ -e $UPDATEFILE ]
+		then
+			SWORD_OUTFILE=metadata-update
+			sword_put $SWORD_WORK_URI $SWORD_OUTFILE \
+				'--data-binary' "@${UPDATEFILE}" \
+				'Content-type: application/xml' \
+				'Content-Disposition: attachment; filename=metadata.xml' \
+				'Packaging: application/atom+xml;type=entry'
+		fi
 	done
 done
 

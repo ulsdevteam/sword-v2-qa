@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+<internal_resource>Etd</internal_resource>
+<member_of_collection_ids>24087f85-ba96-412d-abb1-235b36bdce7a</member_of_collection_ids>
+<member_of_collection_ids>dad0bfdb-32e6-463a-97c5-18cd2d688db8</member_of_collection_ids>
+<abstract>Hydraulic fracturing of shale oil and gas reservoirs is associated with significant environmental sustainability issues regarding water management. Large volume of water, known as produced water, with relatively high total dissolved solids (TDS), is produced during well production. Difficult to treat, these hypersaline brines could contaminate surface freshwater resources and ground water reservoirs. Advanced desalination technologies offer a promising way to provide fresh water while treating the hypersaline produced water. However, the overall performance of desalination systems operating with hypersaline brines has not been thoroughly studied using systems-level approaches. As such, it is necessary to address this knowledge gap by comprehensive analysis of technologies deemed suitable for produced water treatment.This work investigates the technoeconomic feasibility of several well-established as well as novel technologies for treatment of produced water. This is accomplished through module scale mathematical modeling of thermodynamic processes and technoeconomic nonlinear programming optimization. The technologies studied include 1) air gap, direct contact, permeate gap, conductive gap, sweeping gas, and vacuum membrane distillation (MD) systems, 2) single effect, backward feed, forward feed, and parallel feed multi-effect mechanical vapor recompression (MVR) systems, and 3) brine reflux, consecutive loops, split feed, and cascading osmotically assisted reverse osmosis (OARO) systems. This work show that air gap MD has the lowest treatment cost of all MD configurations when the gap size is small, and the Reynolds number is low. For OARO systems, brine-reflux configuration outperforms all others in terms of cost, energy consumption, and design simplicity. Additionally, single effect MVR outperforms multi-effect MVR when the temperature difference across the evaporator is well constrained. Across the studied technologies, brine reflux OARO has the smallest work of separation, followed by air gap MD and MVR. However, brine reflux OARO requires significant investment and replacement of large-area membranes, whereas airgap MD is the least expensive in terms of capital costs. MVR is also associated with high capital costs of compressor and evaporator. Under ideal operating conditions, air gap MD has the lowest cost for produced water treatment. Furthermore, when operational complexities are considered, or feed is at lower salinities, alternative technologies may offer more viable options.</abstract>
+<admin_note>http://d-scholarship.pitt.edu/id/eprint/42151</admin_note>
+<based_near>Pittsburgh, Pennsylvania, USA</based_near>
+<committee_member>Khanna, Vikas - Committee Chair</committee_member><committee_member>El-Halwagi, Mahmoud - Committee Member</committee_member><committee_member>Ng, Carla - Committee Member</committee_member><committee_member>Vidic, Radisav - Committee Member</committee_member>
+<contributor>Mohammadi Shamlou, Elmira</contributor>
+<creator>Mohammadi Shamlou, Elmira</creator>
+<date_created>2022-06-10</date_created>
+<degree_discipline>sch_eng_civilenvironmental</degree_discipline>
+<degree_grantor>University of Pittsburgh</degree_grantor>
+<degree_name>Doctor of Philosophy</degree_name>
+<degree_level>Doctoral</degree_level>
+<description>219 pages</description>
+<identifier>ep-42151</identifier>
+<keyword>osmotically assisted reverse osmosis</keyword><keyword>membrane distillation</keyword><keyword>mechanical vapor recompression</keyword><keyword>produced water</keyword><keyword>Desalination</keyword>
+<license>None specified</license>
+<publisher>University of Pittsburgh</publisher>
+<related_url>http://d-scholarship.pitt.edu/id/eprint/42151</related_url>
+<resource_type>Dissertation</resource_type>
+<rights_statement>http://rightsstatements.org/vocab/InC/1.0/</rights_statement>
+<source>http://d-scholarship.pitt.edu/id/eprint/42151</source>
+<title>Optimization Based Analysis of Desalination Technologies for Unconventional Oil and Gas Produced Water Treatment</title>
+<language>en</language>
+<advisor>Khanna, Vikas - Committee Chair</advisor>
+<visibility>open</visibility>
+</metadata>

@@ -1,0 +1,171 @@
+BIBLIOGRAPHY
+1. Scanlon, B.R., et al., Will water issues constrain oil and gas production in the United States? Environmental science & technology, 2020. 54(6): p. 3510-3519.
+2. Brown, b., Kahan. A. The U.S. leads global petroleum and natural gas production with record growth in 2018. 2019; Available from: https://www.eia.gov/todayinenergy/detail.php?id=40973.
+3. ; Available from: https://www.eia.gov/energyexplained/natural-gas/imports-and-exports.php.
+4. Council, G.P., Modern Shale Gas Development in the United States: A Primer, prepared for the US Department of Energy. National Energy Technology Laboratory (NETL) with ALL Consulting (Oklahoma City, OK: April 2009), 2009: p. 13.
+5. Abualfaraj, N., P.L. Gurian, and M.S. Olson, Characterization of Marcellus shale flowback water. Environmental Engineering Science, 2014. 31(9): p. 514-524.
+6. Estrada, J.M. and R. Bhamidimarri, A review of the issues and treatment options for wastewater from shale gas extraction by hydraulic fracturing. Fuel, 2016. 182: p. 292-303.
+7. Entrekin, S., et al., Rapid expansion of natural gas development poses a threat to surface waters. Frontiers in Ecology and the Environment, 2011. 9(9): p. 503-511.
+8. Coday, B.D. and T.Y. Cath, Forward osmosis: Novel desalination of produced water and fracturing flowback. Journal: American Water Works Association, 2014. 106(2).
+9. Pichtel, J., Oil and gas production wastewater: Soil contamination and pollution prevention. Applied and Environmental Soil Science, 2016. 2016.
+10. Olmstead, S.M., et al., Shale gas development impacts on surface water quality in Pennsylvania. Proceedings of the National Academy of Sciences, 2013. 110(13): p. 4962-4967.
+11. Brittingham, M.C., et al., Ecological risks of shale oil and gas development to wildlife, aquatic resources and their habitats. Environmental science & technology, 2014. 48(19): p. 11034-11047.
+12. Scanlon, B.R., et al., Managing basin‐scale fluid budgets to reduce injection‐induced seismicity from the recent US shale oil revolution. Seismological Research Letters, 2019. 90(1): p. 171-182.
+184
+13. Marshall, A., New wave of injection wells on the way in Ohio for fracking waste. The Plain Dealer, 2012.
+14. Tavakkoli, S., et al., Shale gas produced water management using membrane distillation: An optimization-based approach. Resources, Conservation and Recycling, 2020. 158: p. 104803.
+15. Tong, T. and M. Elimelech, The global rise of zero liquid discharge for wastewater management: drivers, technologies, and future directions. Environmental science & technology, 2016. 50(13): p. 6846-6855.
+16. Yaqub, M. and W. Lee, Zero-liquid discharge (ZLD) technology for resource recovery from wastewater: A review. Science of the total environment, 2019. 681: p. 551-563.
+17. Vane, L.M., Water recovery from brines and salt‐saturated solutions: operability and thermodynamic efficiency considerations for desalination technologies. Journal of Chemical Technology and Biotechnology, 2017.
+18. Shaffer, D.L., et al., Desalination and reuse of high-salinity shale gas produced water: drivers, technologies, and future directions. Environmental science & technology, 2013. 47(17): p. 9569-9583.
+19. Kaplan, R., et al., Assessment of desalination technologies for treatment of a highly saline brine from a potential CO2 storage site. Desalination, 2017. 404: p. 87-101.
+20. Singh, R., Membrane technology and engineering for water purification: application, systems design and operation. 2014: Butterworth-Heinemann.
+21. Sarbatly, R. and C.-K. Chiam, Evaluation of geothermal energy in desalination by vacuum membrane distillation. Applied Energy, 2013. 112: p. 737-746.
+22. Dow, N., et al., Pilot trial of membrane distillation driven by low grade waste heat: Membrane fouling and energy assessment. Desalination, 2016. 391: p. 30-42.
+23. Basile, A. and C. Charcosset, Integrated membrane systems and processes. 2016: Wiley Online Library.
+24. Cath, T.Y., V.D. Adams, and A.E. Childress, Experimental study of desalination using direct contact membrane distillation: a new approach to flux enhancement. Journal of Membrane Science, 2004. 228(1): p. 5-16.
+25. Shirazi, M., Desalination of saline water using direct contact membrane distillation. J. Appl. Chem. Res, 2011. 17: p. 28-36.
+185
+26. Chen, W., et al., High-flux water desalination with interfacial salt sieving effect in nanoporous carbon composite membranes. Nature nanotechnology, 2018. 13(4): p. 345-350.
+27. Kesieme, U.K., et al., Recovery of water and acid from leach solutions using direct contact membrane distillation. Water science and technology, 2014. 69(4): p. 868-875.
+28. Xie, M., et al., A forward osmosis–membrane distillation hybrid process for direct sewer mining: system performance and limitations. Environmental science & technology, 2013. 47(23): p. 13486-13493.
+29. Gryta, M., K. Karakulski, and A. Morawski, Purification of oily wastewater by hybrid UF/MD. Water research, 2001. 35(15): p. 3665-3669.
+30. Kim, J., et al., Osmotically enhanced dewatering-reverse osmosis (OED-RO) hybrid system: Implications for shale gas produced water treatment. Journal of Membrane Science, 2018. 554: p. 282-290.
+31. Atia, A.A., N.Y. Yip, and V. Fthenakis, Pathways for minimal and zero liquid discharge with enhanced reverse osmosis technologies: Module-scale modeling and techno-economic assessment. Desalination, 2021. 509: p. 115069.
+32. Park, K. and D.R. Yang, Cost-based feasibility study and sensitivity analysis of a new draw solution assisted reverse osmosis (DSARO) process for seawater desalination. Desalination, 2017. 422: p. 182-193.
+33. Kim, J., D.I. Kim, and S. Hong, Analysis of an osmotically-enhanced dewatering process for the treatment of highly saline (waste) waters. Journal of Membrane Science, 2018. 548: p. 685-693.
+34. Peters, C.D. and N.P. Hankins, Osmotically assisted reverse osmosis (OARO): Five approaches to dewatering saline brines using pressure-driven membrane processes. Desalination, 2019. 458: p. 1-13.
+35. Chen, X. and N.Y. Yip, Unlocking high-salinity desalination with cascading osmotically mediated reverse osmosis: Energy and operating pressure analysis. Environmental science & technology, 2018. 52(4): p. 2242-2250.
+36. Bartholomew, T.V., et al., Osmotically assisted reverse osmosis for high salinity brine treatment. Desalination, 2017. 421: p. 3-11.
+37. Bouma, A.T., Split-feed counterflow reverse osmosis for brine concentration. Desalination, 2018. 445: p. 280-291.
+38. Ranade, V.V. and V.M. Bhandari, Industrial wastewater treatment, recycling and reuse. 2014: Butterworth-Heinemann.
+186
+39. Krishna, H.J., Introduction to desalination technologies. Texas water development, 2004. 2.
+40. Barbot, E., et al., Spatial and temporal correlation of water quality parameters of produced waters from Devonian-age shale following hydraulic fracturing. Environmental science & technology, 2013. 47(6): p. 2562-2569.
+41. Kondash, A.J., E. Albright, and A. Vengosh, Quantity of flowback and produced waters from unconventional oil and gas exploration. Science of the Total Environment, 2017. 574: p. 314-321.
+42. Clark, C.E. and J.A. Veil, Produced water volumes and management practices in the United States. 2009, Argonne National Lab.(ANL), Argonne, IL (United States).
+43. Lutz, B.D., A.N. Lewis, and M.W. Doyle, Generation, transport, and disposal of wastewater associated with Marcellus Shale gas development. Water Resources Research, 2013. 49(2): p. 647-656.
+44. Ellsworth, W.L., Injection-induced earthquakes. Science, 2013. 341(6142).
+45. Horton, S., Disposal of hydrofracking waste fluid by injection into subsurface aquifers triggers earthquake swarm in central Arkansas with potential for damaging earthquake. Seismological Research Letters, 2012. 83(2): p. 250-260.
+46. Keranen, K.M., et al., Sharp increase in central Oklahoma seismicity since 2008 induced by massive wastewater injection. Science, 2014. 345(6195): p. 448-451.
+47. Lokare, O.R., et al., Importance of feed recirculation for the overall energy consumption in membrane distillation systems. Desalination, 2018. 428: p. 250-254.
+48. Swaminathan, J., Design and operation of membrane distillation with feed recirculation for high recovery brine concentration. Desalination, 2018. 445: p. 51-62.
+49. He, F., J. Gilron, and K.K. Sirkar, High water recovery in direct contact membrane distillation using a series of cascades. Desalination, 2013. 323: p. 48-54.
+50. Alkhudhiri, A., N. Darwish, and N. Hilal, Membrane distillation: a comprehensive review. Desalination, 2012. 287: p. 2-18.
+51. Swaminathan, J., et al., Energy efficiency of permeate gap and novel conductive gap membrane distillation. Journal of Membrane Science, 2016. 502: p. 171-178.
+52. Drioli, E., A. Ali, and F. Macedonio, Membrane distillation: Recent developments and perspectives. Desalination, 2015. 356: p. 56-84.
+187
+53. Summers, E.K. and H.A. Arafat, Energy efficiency comparison of single-stage membrane distillation (MD) desalination cycles in different configurations. Desalination, 2012. 290: p. 54-66.
+54. Swaminathan, J., H.W. Chung, and D.M. Warsinger, Energy efficiency of membrane distillation up to high salinity: Evaluating critical system size and optimal membrane thickness. Applied energy, 2018. 211: p. 715-734.
+55. El Amali, A., S. Bouguecha, and M. Maalej, Experimental study of air gap and direct contact membrane distillation configurations: application to geothermal and seawater desalination. Desalination, 2004. 168: p. 357.
+56. Alklaibi, A.M. and N. Lior, Comparative study of direct-contact and air-gap membrane distillation processes. Industrial & engineering chemistry research, 2007. 46(2): p. 584-590.
+57. Eykens, L., et al., How to select a membrane distillation configuration? Process conditions and membrane influence unraveled. Desalination, 2016. 399: p. 105-115.
+58. Khalifa, A.E., Water and air gap membrane distillation for water desalination–an experimental comparative study. Separation and Purification Technology, 2015. 141: p. 276-284.
+59. Cheng, L., et al., Comparative study of air gap and permeate gap membrane distillation using internal heat recovery hollow fiber membrane module. Desalination, 2018. 426: p. 42-49.
+60. Noamani, S., et al., Modeling of Air-Gap Membrane Distillation and Comparative Study with Direct Contact Membrane Distillation. Industrial & Engineering Chemistry Research, 2020. 59(50): p. 21930-21947.
+61. Kesieme, U.K., et al., Economic analysis of desalination technologies in the context of carbon pricing, and opportunities for membrane distillation. Desalination, 2013. 323: p. 66-74.
+62. Al-Obaidani, S., et al., Potential of membrane distillation in seawater desalination: thermal efficiency, sensitivity study and cost estimation. Journal of Membrane Science, 2008. 323(1): p. 85-98.
+63. Sirkar, K.K. and L. Song, Pilot-scale studies for direct contact membrane distillation-based desalination process. 2009: US Department of the Interior, Bureau of Reclamation.
+64. Schwantes, R., et al., Techno-economic comparison of membrane distillation and MVC in a zero liquid discharge application. Desalination, 2018. 428: p. 50-68.
+188
+65. Hitsov, I., et al., Economic modelling and model-based process optimization of membrane distillation. Desalination, 2018. 436: p. 125-143.
+66. Tavakkoli, S., et al., A techno-economic assessment of membrane distillation for treatment of Marcellus shale produced water. Desalination, 2017. 416: p. 24-34.
+67. Carrero-Parreño, A., et al., Optimization of multistage membrane distillation system for treating shale gas produced water. Desalination, 2019. 460: p. 15-27.
+68. Bartholomew, T.V., et al., Cost optimization of high recovery single stage gap membrane distillation. Journal of Membrane Science, 2020. 611: p. 118370.
+69. Lokare, O.R., et al., Integrating membrane distillation with waste heat from natural gas compressor stations for produced water treatment in Pennsylvania. Desalination, 2017. 413: p. 144-153.
+70. Drud, A.S., CONOPT—a large-scale GRG code. ORSA Journal on computing, 1994. 6(2): p. 207-216.
+71. Sievers, M. and J.H. Lienhard, Design of flat-plate dehumidifiers for humidification–dehumidification desalination systems. Heat transfer engineering, 2013. 34(7): p. 543-561.
+72. Swaminathan, J., Numerical and experimental investigation of membrane distillation flux and energy efficiency. 2014, Massachusetts Institute of Technology.
+73. Lin, S., N.Y. Yip, and M. Elimelech, Direct contact membrane distillation with heat recovery: Thermodynamic insights from module scale modeling. Journal of membrane science, 2014. 453: p. 498-515.
+74. Warsinger, D.M., et al., Scaling and fouling in membrane distillation for desalination applications: a review. Desalination, 2015. 356: p. 294-313.
+75. Guan, G., et al., Achieving sustainable operation for hypersaline membrane distillation applications: A novel strategy based on the critical Reynolds number. Desalination, 2021. 499: p. 114833.
+76. Warsinger, D.M., E.W. Tow, and J. Swaminathan, Theoretical framework for predicting inorganic fouling in membrane distillation and experimental validation with calcium sulfate. Journal of Membrane Science, 2017. 528: p. 381-390.
+77. Gregory, K.B., R.D. Vidic, and D.A. Dzombak, Water management challenges associated with the production of shale gas by hydraulic fracturing. Elements, 2011. 7(3): p. 181-186.
+78. Vidic, R.D., et al., Impact of shale gas development on regional water quality. Science, 2013. 340(6134): p. 1235009.
+189
+79. Paugh, L.O. Marcellus shale water management challenges in Pennsylvania. in SPE Shale Gas Production Conference. 2008. OnePetro.
+80. Brantley, S.L., et al., Water resource impacts during unconventional shale gas development: The Pennsylvania experience. International Journal of Coal Geology, 2014. 126: p. 140-156.
+81. Obkirchner, G.E., Evaluating the Economic Impacts of Groundwater Pumping for Hydraulic Fracturing on Aquifer Stakeholders in the Eagle Ford Shale, Texas. 2019.
+82. Fontenot, B.E., et al., An evaluation of water quality in private drinking water wells near natural gas extraction sites in the Barnett Shale Formation. Environmental science & technology, 2013. 47(17): p. 10032-10040.
+83. Jackson, R.B., et al., Increased stray gas abundance in a subset of drinking water wells near Marcellus shale gas extraction. Proceedings of the National Academy of Sciences, 2013. 110(28): p. 11250-11255.
+84. Vengosh, A., et al., A critical review of the risks to water resources from unconventional shale gas development and hydraulic fracturing in the United States. Environmental science & technology, 2014. 48(15): p. 8334-8348.
+85. Burton Jr, G.A., et al., Hydraulic “fracking”: are surface water impacts an ecological concern? Environmental Toxicology and Chemistry, 2014. 33(8): p. 1679-1689.
+86. Rassenfoss, S., From flowback to fracturing: water recycling grows in the Marcellus shale. Journal of Petroleum Technology, 2011. 63(07): p. 48-51.
+87. Veil, J.A., Water management technologies used by Marcellus Shale Gas Producers. 2010, Argonne National Lab.(ANL), Argonne, IL (United States).
+88. Yazdan, M.M., et al., Review on the evaluation of the impacts of wastewater disposal in hydraulic fracturing industry in the United States. Technologies, 2020. 8(4): p. 67.
+89. Vane, L.M., Water recovery from brines and salt‐saturated solutions: operability and thermodynamic efficiency considerations for desalination technologies. Journal of Chemical Technology & Biotechnology, 2017. 92(10): p. 2506-2518.
+90. Cheng, L.-H., P.-C. Wu, and J. Chen, Numerical simulation and optimal design of AGMD-based hollow fiber modules for desalination. Industrial & Engineering Chemistry Research, 2009. 48(10): p. 4948-4959.
+91. Mohammadi Shamlou, E., Vidic, R., Khanna, V., Optimization-based Economic Comparison of Membrane Distillation Configurations for Application in Shale Gas Produced Water Treatment. Desalination, 2021.
+190
+92. Swaminathan, J., Unified framework to design efficient membrane distillation for brine concentration. 2017, Massachusetts Institute of Technology.
+93. Pangarkar, B.L. and M. Sane, Performance of air gap membrane distillation for desalination of ground water and seawater. World Academy of Science, Engineering, and Technology, 2011. 75: p. 177-181.
+94. Zhao, K., et al., Experimental study of the memsys vacuum-multi-effect-membrane-distillation (V-MEMD) module. Desalination, 2013. 323: p. 150-160.
+95. Gilron, J., L. Song, and K.K. Sirkar, Design for cascade of crossflow direct contact membrane distillation. Industrial & Engineering Chemistry Research, 2007. 46(8): p. 2324-2334.
+96. Chung, H.W., J. Swaminathan, and D.M. Warsinger, Multistage vacuum membrane distillation (MSVMD) systems for high salinity applications. Journal of Membrane Science, 2016. 497: p. 128-141.
+97. Summers, E. and J. Lienhard, Cycle performance of multi-stage vacuum membrane distillation (MS-VMD) systems. Proc. 2013 IDA World Congr. Desalin. Water Reuse, Tianjin, China, 2013.
+98. Dudchenko, A.V., T.V. Bartholomew, and M.S. Mauter, Cost optimization of multi-stage gap membrane distillation. Journal of Membrane Science, 2021. 627: p. 119228.
+99. Lu, Y. and J. Chen, Optimal design of multistage membrane distillation systems for water purification. Industrial & Engineering Chemistry Research, 2011. 50(12): p. 7345-7354.
+100. Lee, J.-G., et al., Performance modeling of direct contact membrane distillation (DCMD) seawater desalination process using a commercial composite membrane. Journal of Membrane Science, 2015. 478: p. 85-95.
+101. Gryta, M., M. Tomaszewska, and A. Morawski, Membrane distillation with laminar flow. Separation and Purification Technology, 1997. 11(2): p. 93-101.
+102. Butkovskyi, A., et al., Organic pollutants in shale gas flowback and produced waters: identification, potential ecological impact, and implications for treatment strategies. Environmental science & technology, 2017. 51(9): p. 4740-4754.
+103. Conidi, C., et al., Treatment of flue gas desulfurization wastewater by an integrated membrane-based process for approaching zero liquid discharge. Membranes, 2018. 8(4): p. 117.
+104. Wales, M.D., et al., Flue Gas Desulfurization (FGD) Wastewater Treatment Using Polybenzimidazole (PBI) Hollow Fiber (HF) Membranes. Membranes, 2021. 11(6): p. 430.
+191
+105. Mohamed, A., M. Maraqa, and J. Al Handhaly, Impact of land disposal of reject brine from desalination plants on soil and groundwater. Desalination, 2005. 182(1-3): p. 411-433.
+106. Panagopoulos, A. and K.-J. Haralambous, Environmental impacts of desalination and brine treatment-Challenges and mitigation measures. Marine Pollution Bulletin, 2020. 161: p. 111773.
+107. Angelini, P., et al., Materials for separation technologies: Energy and emission reduction opportunities. DOE, EERE Office, Washington, DC, 2005. 103.
+108. Shao, L., Grand Challenges in Emerging Separation Technologies. Frontiers in Environmental Chemistry, 2020. 1: p. 3.
+109. Vane, L., Separations Versus Sustainability: There Is No Such Thing As a Free Lunch, in Sustainability in the Design, Synthesis and Analysis of Chemical Engineering Processes. 2016, Elsevier. p. 35-65.
+110. Jones, E., et al., The state of desalination and brine production: A global outlook. Science of the Total Environment, 2019. 657: p. 1343-1356.
+111. Ahunbay, M.G., S.B. Tantekin-Ersolmaz, and W.B. Krantz, Energy optimization of a multistage reverse osmosis process for seawater desalination. Desalination, 2018. 429: p. 1-11.
+112. Zhu, A., P.D. Christofides, and Y. Cohen, Effect of thermodynamic restriction on energy cost optimization of RO membrane water desalination. Industrial & Engineering Chemistry Research, 2008. 48(13): p. 6010-6021.
+113. El‐Halwagi, M.M., Synthesis of reverse‐osmosis networks for waste reduction. AIChE Journal, 1992. 38(8): p. 1185-1198.
+114. Lin, S. and M. Elimelech, Staged reverse osmosis operation: Configurations, energy efficiency, and application potential. Desalination, 2015. 366: p. 9-14.
+115. Mistry, K.H., et al., Entropy generation analysis of desalination technologies. Entropy, 2011. 13(10): p. 1829-1864.
+116. Bartholomew, T.V., N.S. Siefert, and M.S. Mauter, Cost optimization of osmotically assisted reverse osmosis. Environmental science & technology, 2018. 52(20): p. 11813-11821.
+117. Loeb, S. and M. Bloch, Countercurrent flow osmotic processes for the production of solutions having a high osmotic pressure. Desalination, 1973. 13(2): p. 207-215.
+192
+118. Zhang, S. and T.-S. Chung, Minimizing the instant and accumulative effects of salt permeability to sustain ultrahigh osmotic power density. Environmental science & technology, 2013. 47(17): p. 10085-10092.
+119. Chou, S., R. Wang, and A.G. Fane, Robust and high performance hollow fiber membranes for energy harvesting from salinity gradients by pressure retarded osmosis. Journal of membrane science, 2013. 448: p. 44-54.
+120. Kim, Y.C. and M. Elimelech, Adverse impact of feed channel spacers on the performance of pressure retarded osmosis. Environmental science & technology, 2012. 46(8): p. 4673-4681.
+121. Song, X., Z. Liu, and D.D. Sun, Energy recovery from concentrated seawater brine by thin-film nanofiber composite pressure retarded osmosis membranes with high power density. Energy & Environmental Science, 2013. 6(4): p. 1199-1210.
+122. Straub, A.P., N.Y. Yip, and M. Elimelech, Raising the bar: Increased hydraulic pressure allows unprecedented high power densities in pressure-retarded osmosis. Environmental Science & Technology Letters, 2014. 1(1): p. 55-59.
+123. Shatat, M. and S.B. Riffat, Water desalination technologies utilizing conventional and renewable energy sources. International Journal of Low-Carbon Technologies, 2012. 9(1): p. 1-19.
+124. Kaplan, R., et al., Assessment of desalination technologies for treatment of a highly saline brine from a potential CO 2 storage site. Desalination, 2017. 404: p. 87-101.
+125. Jamil, M.A. and S.M. Zubair, On thermoeconomic analysis of a single-effect mechanical vapor compression desalination system. Desalination, 2017. 420: p. 292-307.
+126. El-Dessouky, H., H. Ettouney, and F. Al-Juwayhel, Multiple effect evaporation—vapour compression desalination processes. Chemical Engineering Research and Design, 2000. 78(4): p. 662-676.
+127. Darwish, M. and H.K. Abdulrahim, Feed water arrangements in a multi-effect desalting system. Desalination, 2008. 228(1-3): p. 30-54.
+128. Khademi, M., M. Rahimpour, and A. Jahanmiri, Simulation and optimization of a six-effect evaporator in a desalination process. Chemical Engineering and Processing: Process Intensification, 2009. 48(1): p. 339-347.
+129. Al-Mutaz, I.S. and I. Wazeer, Comparative performance evaluation of conventional multi-effect evaporation desalination processes. Applied Thermal Engineering, 2014. 73(1): p. 1194-1203.
+130. Sayyaadi, H. and A. Saffari, Thermoeconomic optimization of multi effect distillation desalination systems. Applied Energy, 2010. 87(4): p. 1122-1133.
+193
+131. Xue, J., et al., Analysis of thermal properties on backward feed multieffect distillation dealing with high-salinity wastewater. Journal of Nanotechnology, 2015. 2015.
+132. Druetta, P., P. Aguirre, and S. Mussati, Optimization of multi-effect evaporation desalination plants. Desalination, 2013. 311: p. 1-15.
+133. Sagharichiha, M., et al., Simulation of a forward feed multiple effect desalination plant with vertical tube evaporators. Chemical Engineering and Processing: Process Intensification, 2014. 75: p. 110-118.
+134. Esfahani, I.J., S. Lee, and C. Yoo, Evaluation and optimization of a multi-effect evaporation–absorption heat pump desalination based conventional and advanced exergy and exergoeconomic analyses. Desalination, 2015. 359: p. 92-107.
+135. Onishi, V.C., et al., Shale gas flowback water desalination: Single vs multiple-effect evaporation with vapor recompression cycle and thermal integration. Desalination, 2017. 404: p. 230-248.
+136. Aly, G., Computer simulations of multiple-effect FFE-VC systems for water desalination. Desalination, 1983. 45(2): p. 119-131.
+137. Jamil, M.A. and S.M. Zubair, Design and analysis of a forward feed multi-effect mechanical vapor compression desalination system: An exergo-economic approach. Energy, 2017. 140: p. 1107-1120.
+138. Jamil, M.A. and S.M. Zubair, Effect of feed flow arrangement and number of evaporators on the performance of multi-effect mechanical vapor compression desalination systems. Desalination, 2018. 429: p. 76-87.
+139. Nafey, A.S., H.E.S. Fath, and A.A. Mabrouk, Thermoeconomic design of a multi-effect evaporation mechanical vapor compression (MEE–MVC) desalination process. Desalination, 2008. 230(1-3): p. 1-15.
+140. Elsayed, M.L., et al., Performance modeling of MED-MVC systems: Exergy-economic analysis. Energy, 2019. 166: p. 552-568.
+141. Helal, A. and S. Al-Malek, Design of a solar-assisted mechanical vapor compression (MVC) desalination unit for remote areas in the UAE. Desalination, 2006. 197(1-3): p. 273-300.
+142. Lokiec, F. and A. Ophir. The mechanical vapor compression: 38 years of experience. in IDA World Congress-Maspalomas, Gran Canaria, Spain. 2007.
+143. Towler, G. and R. Sinnott, Chemical engineering design: principles, practice and economics of plant and process design. 2012: Elsevier.
+194
+144. Garrett, D., Chemical Engineering Economics Van Nostrand Reinhold. New York, 1989.
+145. Turton, R., et al., Analysis, synthesis and design of chemical processes. 2008: Pearson Education.
+146. Karanikola, V., et al., Economic performance of membrane distillation configurations in optimal solar thermal desalination systems. Desalination, 2019. 472: p. 114164.
+147. Alsaadi, A.S., et al., Modeling of air-gap membrane distillation process: A theoretical and experimental study. Journal of membrane science, 2013. 445: p. 53-65.
+148. Hitsov, I., et al., Full-scale validated Air Gap Membrane Distillation (AGMD) model without calibration parameters. Journal of membrane science, 2017. 533: p. 309-320.
+149. Karanikola, V., et al., Sweeping gas membrane distillation: numerical simulation of mass and heat transfer in a hollow fiber membrane module. Journal of Membrane Science, 2015. 483: p. 15-24.
+150. García-Payo, M.d.C. and M.A. Izquierdo-Gil, Thermal resistance technique for measuring the thermal conductivity of thin microporous membranes. Journal of Physics D: Applied Physics, 2004. 37(21): p. 3008.
+151. Hitsov, I., et al., Modelling approaches in membrane distillation: A critical review. Separation and Purification Technology, 2015. 142: p. 48-64.
+152. Da Costa, A., A. Fane, and D. Wiley, Spacer characterization and pressure drop modelling in spacer-filled channels for ultrafiltration. Journal of membrane science, 1994. 87(1-2): p. 79-98.
+153. Winter, D., Membrane distillation: A thermodynamic, technological and economic analysis. 2015: Shaker Verlag.
+154. Guillen, G. and E.M. Hoek, Modeling the impacts of feed spacer geometry on reverse osmosis and nanofiltration processes. Chemical Engineering Journal, 2009. 149(1-3): p. 221-231.
+155. El-Dessouky, H.T. and H.M. Ettouney, Fundamentals of salt water desalination. 2002: Elsevier.
+156. Lu, Y.-Y., et al., Optimum design of reverse osmosis system under different feed concentration and product specification. Journal of membrane science, 2007. 287(2): p. 219-229.
+157. Park, C., et al., Stochastic cost estimation approach for full-scale reverse osmosis desalination plants. Journal of Membrane Science, 2010. 364(1-2): p. 52-64.
+195
+158. Koutsou, C.P., S.G. Yiantsios, and A.J. Karabelas, A numerical and experimental study of mass transfer in spacer-filled channels: Effects of spacer geometrical characteristics and Schmidt number. Journal of Membrane Science, 2009. 326(1): p. 234-251.
