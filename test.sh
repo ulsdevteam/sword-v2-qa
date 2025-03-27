@@ -23,7 +23,7 @@ function sword_request {
 		>&2 echo ... $2 not valid
 		exit 2
 	fi
-	if [ ! -z $SWORD_OUTPUT/xmllint.err  ]
+	if [ -s $SWORD_OUTPUT/xmllint.err  ]
 	then
 		>&2 echo ... $2 had XML warnings
 		exit 2
@@ -137,6 +137,7 @@ do
 			'--data-binary' "@${m}" \
 			'Content-type: application/xml' \
 			'Content-Disposition: attachment; filename=metadata.xml' \
+			'Hyrax-Work-Model: Etd' \
 			'Packaging: application/atom+xml;type=entry'
 		# What URI was created for this work?
 		SWORD_WORK_URI=`xsltproc get-src-link.xsl $SWORD_OUTPUT/$SWORD_OUTFILE.out | sed "s|$SWORD_ENDPOINT/||"`
