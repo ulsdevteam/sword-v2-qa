@@ -2,17 +2,16 @@
 
 # Request a SWORD URI ($1), put results into temp file ($2), via HTTP Method ($3)
 function sword_request {
-	echo ${3} $SWORD_ENDPOINT/$1 into $2
 	echo curl $SWORD_CURL_OPTS -s -D $SWORD_OUTPUT/$2.headers -o $SWORD_OUTPUT/$2.out \
 		--request $3 \
 		--url $SWORD_ENDPOINT/$1 \
-		$SWORD_CURL_AUTH_KEY "$SWORD_CURL_AUTH_VAL" \
-		$SWORD_POST_HEADER_KEY1 "$SWORD_POST_HEADER_VAL1" \
-		$SWORD_POST_HEADER_KEY2 "$SWORD_POST_HEADER_VAL2" \
-		$SWORD_POST_HEADER_KEY3 "$SWORD_POST_HEADER_VAL3" \
-		$SWORD_POST_HEADER_KEY4 "$SWORD_POST_HEADER_VAL4" \
-		$SWORD_POST_HEADER_KEY5 "$SWORD_POST_HEADER_VAL5" \
-		$SWORD_POST_FILE_KEY "$SWORD_POST_FILE_VAL"
+		$SWORD_CURL_AUTH_KEY \"$SWORD_CURL_AUTH_VAL\" \
+		$SWORD_POST_HEADER_KEY1 \"$SWORD_POST_HEADER_VAL1\" \
+		$SWORD_POST_HEADER_KEY2 \"$SWORD_POST_HEADER_VAL2\" \
+		$SWORD_POST_HEADER_KEY3 \"$SWORD_POST_HEADER_VAL3\" \
+		$SWORD_POST_HEADER_KEY4 \"$SWORD_POST_HEADER_VAL4\" \
+		$SWORD_POST_HEADER_KEY5 \"$SWORD_POST_HEADER_VAL5\" \
+		$SWORD_POST_FILE_KEY \"$SWORD_POST_FILE_VAL\"
 	curl $SWORD_CURL_OPTS -s -D $SWORD_OUTPUT/$2.headers -o $SWORD_OUTPUT/$2.out \
 		--request $3 \
 		--url $SWORD_ENDPOINT/$1 \
@@ -38,7 +37,7 @@ function sword_request {
 	if [ -s $SWORD_OUTPUT/xmllint.err  ]
 	then
 		>&2 echo ... $2 had XML warnings
-		exit 2
+		#exit 2
 	fi
 }
 
@@ -159,13 +158,22 @@ for SWORD_CURRENT in $SWORD_COLLECTIONS
 do
 	for m in input/*/metadata.xml
 	do
+		MODELFILE=`dirname $m`/hyrax.model
+		if [ -s $MODELFILE ]
+		then
+			HYRAXMODEL=`cat $MODELFILE`
+			HYRAXMODELHEADER='Hyrax-Work-Model: '$HYRAXMODEL
+		else
+			HYRAXMODEL=
+			HYRAXMODELHEADER=
+		fi
 		# Try metadata deposit
 		SWORD_OUTFILE=metadata-only
 		sword_post collections/$SWORD_CURRENT/works/ $SWORD_OUTFILE \
 			'--data-binary' "@${m}" \
 			'Content-type: application/xml' \
 			'Content-Disposition: attachment; filename=metadata.xml' \
-			'X-Hyrax-Work-Model: Etd' \
+			"$HYRAXMODELHEADER" \
 			'Packaging: application/atom+xml;type=entry'
 		# What URI was created for this work?
 		SWORD_WORK_URI=`xsltproc get-src-link.xsl $SWORD_OUTPUT/$SWORD_OUTFILE.out | sed "s|$SWORD_ENDPOINT/||"`
