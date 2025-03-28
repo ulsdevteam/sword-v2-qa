@@ -18,6 +18,6 @@
 <source>https://www.dpconline.org/digipres/implement-digipres/dpc-ram/download-dpc-ram</source>
 <title>DPC's Rapid Assessment Model (version 3)</title>
 <visibility_after_embargo>open</visibility_after_embargo>
-<visibility_during_embrgo>institution</visibility_during_embrgo>
+<visibility_during_embrgo>authenticated</visibility_during_embrgo>
 <visibility>embargo</visibility>
 </metadata>
