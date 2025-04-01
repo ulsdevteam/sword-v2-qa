@@ -1,97 +1,47 @@
 #!/bin/bash
 
 # Request a SWORD URI ($1), put results into temp file ($2), via HTTP Method ($3)
+# Additional headers ($4 - ) will be processed verbatim
 function sword_request {
-	echo curl $SWORD_CURL_OPTS -s -D $SWORD_OUTPUT/$2.headers -o $SWORD_OUTPUT/$2.out \
-		--request $3 \
-		--url $SWORD_ENDPOINT/$1 \
-		$SWORD_CURL_AUTH_KEY \"$SWORD_CURL_AUTH_VAL\" \
-		$SWORD_POST_HEADER_KEY1 \"$SWORD_POST_HEADER_VAL1\" \
-		$SWORD_POST_HEADER_KEY2 \"$SWORD_POST_HEADER_VAL2\" \
-		$SWORD_POST_HEADER_KEY3 \"$SWORD_POST_HEADER_VAL3\" \
-		$SWORD_POST_HEADER_KEY4 \"$SWORD_POST_HEADER_VAL4\" \
-		$SWORD_POST_HEADER_KEY5 \"$SWORD_POST_HEADER_VAL5\" \
-		$SWORD_POST_FILE_KEY \"$SWORD_POST_FILE_VAL\"
-	curl $SWORD_CURL_OPTS -s -D $SWORD_OUTPUT/$2.headers -o $SWORD_OUTPUT/$2.out \
-		--request $3 \
-		--url $SWORD_ENDPOINT/$1 \
-		$SWORD_CURL_AUTH_KEY "$SWORD_CURL_AUTH_VAL" \
-		$SWORD_POST_HEADER_KEY1 "$SWORD_POST_HEADER_VAL1" \
-		$SWORD_POST_HEADER_KEY2 "$SWORD_POST_HEADER_VAL2" \
-		$SWORD_POST_HEADER_KEY3 "$SWORD_POST_HEADER_VAL3" \
-		$SWORD_POST_HEADER_KEY4 "$SWORD_POST_HEADER_VAL4" \
-		$SWORD_POST_HEADER_KEY5 "$SWORD_POST_HEADER_VAL5" \
-		$SWORD_POST_FILE_KEY "$SWORD_POST_FILE_VAL"
-	SWORD_HTTP_CODE=`head -1 $SWORD_OUTPUT/$2.headers`
+	SWORD_REQUEST_URI=$SWORD_ENDPOINT/$1; shift
+	SWORD_REQUEST_LOGFILE=$1; shift
+	SWORD_REQUEST_METHOD=$1; shift
+	echo curl $SWORD_CURL_OPTS -s -D $SWORD_OUTPUT/$SWORD_REQUEST_LOGFILE.headers -o $SWORD_OUTPUT/$SWORD_REQUEST_LOGFILE.out \
+		--request $SWORD_REQUEST_METHOD \
+		--url $SWORD_REQUEST_URI \
+		"$@"
+	curl $SWORD_CURL_OPTS -s -D $SWORD_OUTPUT/$SWORD_REQUEST_LOGFILE.headers -o $SWORD_OUTPUT/$SWORD_REQUEST_LOGFILE.out \
+		--request $SWORD_REQUEST_METHOD \
+		--url $SWORD_REQUEST_URI \
+		"$@"
+	SWORD_HTTP_CODE=`head -1 $SWORD_OUTPUT/$SWORD_REQUEST_LOGFILE.headers`
 	if [ ""`echo $SWORD_HTTP_CODE | cut -d' ' -f2 | cut -c 1` != "2" ]
 	then
 		>&2 echo ... returned $SWORD_HTTP_CODE
 		exit 2
 	fi
-	xmllint --noout --nowarning $SWORD_OUTPUT/$2.out 2> $SWORD_OUTPUT/xmllint.err
+	xmllint --noout --nowarning $SWORD_OUTPUT/$SWORD_REQUEST_LOGFILE.out 2> $SWORD_OUTPUT/xmllint.err
 	if [ $? -ne 0 ]
 	then
-		>&2 echo ... $2 not valid
+		>&2 echo ... $SWORD_REQUEST_LOGFILE not valid
 		exit 2
 	fi
 	if [ -s $SWORD_OUTPUT/xmllint.err  ]
 	then
-		>&2 echo ... $2 had XML warnings
+		>&2 echo ... $SWORD_REQUEST_LOGFILE had XML warnings
 		#exit 2
 	fi
 }
 
 function sword_get {
-	SWORD_POST_FILE_KEY=
-	SWORD_POST_FILE_VAL=
-	SWORD_POST_HEADER_KEY1='--header'
-	SWORD_POST_HEADER_KEY2=
-	SWORD_POST_HEADER_KEY3=
-	SWORD_POST_HEADER_KEY4=
-	SWORD_POST_HEADER_KEY5=
-	SWORD_POST_HEADER_VAL1='Content-type: application/xml'
-	SWORD_POST_HEADER_VAL2=
-	SWORD_POST_HEADER_VAL3=
-	SWORD_POST_HEADER_VAL4=
-	SWORD_POST_HEADER_VAL5=
-	sword_request $1 $2 GET
+	sword_request $1 $2 GET $SWORD_CURL_AUTH_KEY "$SWORD_CURL_AUTH_VAL" '--header' 'Content-type: application/xml'
 }
 
 function sword_pxxx {
-	HTTP_METHOD=$1; shift
-	SWORD_POST_FILE_KEY=$3
-	SWORD_POST_FILE_VAL=$4
-	SWORD_POST_HEADER_KEY1=
-	SWORD_POST_HEADER_KEY2=
-	SWORD_POST_HEADER_KEY3=
-	SWORD_POST_HEADER_KEY4=
-	SWORD_POST_HEADER_KEY5=
-	if [ "$5" != "" ]
-	then
-		SWORD_POST_HEADER_KEY1='--header'
-	fi
-	if [ "$6" != "" ]
-	then
-		SWORD_POST_HEADER_KEY2='--header'
-	fi
-	if [ "$7" != "" ]
-	then
-		SWORD_POST_HEADER_KEY3='--header'
-	fi
-	if [ "$8" != "" ]
-	then
-		SWORD_POST_HEADER_KEY4='--header'
-	fi
-	if [ "$9" != "" ]
-	then
-		SWORD_POST_HEADER_KEY5='--header'
-	fi
-	SWORD_POST_HEADER_VAL1=$5
-	SWORD_POST_HEADER_VAL2=$6
-	SWORD_POST_HEADER_VAL3=$7
-	SWORD_POST_HEADER_VAL4=$8
-	SWORD_POST_HEADER_VAL5=$9
-	sword_request $1 $2 $HTTP_METHOD
+	SWORD_REQUEST_METHOD=$1; shift
+	SWORD_REQUEST_URI=$1; shift
+	SWORD_REQUEST_LOGFILE=$1; shift
+	sword_request $SWORD_REQUEST_URI $SWORD_REQUEST_LOGFILE $SWORD_REQUEST_METHOD $SWORD_CURL_AUTH_KEY "$SWORD_CURL_AUTH_VAL" "$@"
 }
 
 function sword_post {
@@ -162,19 +112,20 @@ do
 		if [ -s $MODELFILE ]
 		then
 			HYRAXMODEL=`cat $MODELFILE`
-			HYRAXMODELHEADER='Hyrax-Work-Model: '$HYRAXMODEL
+			sARGS=('--header' 'Hyrax-Work-Model: '$HYRAXMODEL)
 		else
 			HYRAXMODEL=
-			HYRAXMODELHEADER=
+			sARGS=()
 		fi
 		# Try metadata deposit
 		SWORD_OUTFILE=metadata-only
 		sword_post collections/$SWORD_CURRENT/works/ $SWORD_OUTFILE \
 			'--data-binary' "@${m}" \
-			'Content-type: application/xml' \
-			'Content-Disposition: attachment; filename=metadata.xml' \
-			"$HYRAXMODELHEADER" \
-			'Packaging: application/atom+xml;type=entry'
+			'--header' 'Content-type: application/xml' \
+			'--header' 'Content-Disposition: attachment; filename=metadata.xml' \
+			"${sARGS[@]}" \
+			'--header' 'Packaging: application/atom+xml;type=entry'
+		sARGS=()
 		# What URI was created for this work?
 		SWORD_WORK_URI=`xsltproc get-src-link.xsl $SWORD_OUTPUT/$SWORD_OUTFILE.out | sed "s|$SWORD_ENDPOINT/||"`
 		if [ "$SWORD_WORK_URI" = "" ]
@@ -199,9 +150,9 @@ do
 			SWORD_OUTFILE=file-deposit
 			sword_post $SWORD_FILES_URI $SWORD_OUTFILE \
 			'--data-binary' "@${f}" \
-			'Content-type: '`file --brief --mime "$f" | cut -d';' -f1` \
-			'Packaging: http://purl.org/net/sword/package/Binary' \
-			"Content-Disposition: attachment; filename=\"${HTTPFILENAME}\""
+			'--header' 'Content-type: '`file --brief --mime "$f" | cut -d';' -f1` \
+			'--header' 'Packaging: http://purl.org/net/sword/package/Binary' \
+			'--header' "Content-Disposition: attachment; filename=\"${HTTPFILENAME}\""
 		done
 		# Try updates
 		UPDATEFILE=`dirname $m`/update.xml
@@ -210,9 +161,9 @@ do
 			SWORD_OUTFILE=metadata-update
 			sword_put $SWORD_WORK_URI $SWORD_OUTFILE \
 				'--data-binary' "@${UPDATEFILE}" \
-				'Content-type: application/xml' \
-				'Content-Disposition: attachment; filename=metadata.xml' \
-				'Packaging: application/atom+xml;type=entry'
+				'--header' 'Content-type: application/xml' \
+				'--header' 'Content-Disposition: attachment; filename=metadata.xml' \
+				'--header' 'Packaging: application/atom+xml;type=entry'
 		fi
 	done
 done
