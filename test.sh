@@ -136,6 +136,11 @@ do
 		# Try get work
 		SWORD_OUTFILE=metadata-returned
 		sword_get $SWORD_WORK_URI $SWORD_OUTFILE
+		# Compare input and output
+		xsltproc h4cmeta.xsl $SWORD_OUTPUT/$SWORD_OUTFILE.out > $SWORD_OUTPUT/$SWORD_OUTFILE.metadata
+		xmllint --format $SWORD_OUTPUT/$SWORD_OUTFILE.metadata | sort > $SWORD_OUTPUT/$SWORD_OUTFILE.metadata.sorted
+		xmllint --format $m | sort > $SWORD_OUTPUT/$SWORD_OUTFILE.input.sorted
+		diff $SWORD_OUTPUT/$SWORD_OUTFILE.input.sorted $SWORD_OUTPUT/$SWORD_OUTFILE.metadata.sorted
 		# What URI was created for the files?
 		SWORD_FILES_URI=`xsltproc get-edit-link.xsl $SWORD_OUTPUT/$SWORD_OUTFILE.out | sed "s|$SWORD_ENDPOINT/||"`
 		if [ "$SWORD_FILES_URI" = "" ]
@@ -165,6 +170,47 @@ do
 				'--header' 'Content-Disposition: attachment; filename=metadata.xml' \
 				'--header' 'Packaging: application/atom+xml;type=entry'
 		fi
+		# Try dynamic updates
+		UPDATEFILE=`dirname $m`/update.xsl
+		if [ -e $UPDATEFILE ]
+		then
+			SWORD_OUTFILE=metadata-returned
+			sword_get $SWORD_WORK_URI $SWORD_OUTFILE
+			UPDATEDTEMPFILE=$SWORD_OUTPUT/$SWORD_OUTFILE.modified
+			xsltproc $UPDATEFILE $SWORD_OUTPUT/$SWORD_OUTFILE.out > $UPDATEDTEMPFILE
+			SWORD_OUTFILE=metadata-update
+			sword_put $SWORD_WORK_URI $SWORD_OUTFILE \
+				'--data-binary' "@${UPDATEDTEMPFILE}" \
+				'--header' 'Content-type: application/xml' \
+				'--header' 'Content-Disposition: attachment; filename=metadata.xml' \
+				'--header' 'Packaging: application/atom+xml;type=entry'
+		fi
+		# Try submitting the work at-large
+		MODELFILE=`dirname $m`/hyrax.model
+		if [ -s $MODELFILE ]
+		then
+			HYRAXMODEL=`cat $MODELFILE`
+			sARGS=('--header' 'Hyrax-Work-Model: '$HYRAXMODEL)
+		else
+			HYRAXMODEL=
+			sARGS=()
+		fi
+		ZIPFILE=`mktemp -p $SWORD_OUTPUT -t XXXXXXXX.zip`
+		rm $ZIPFILE
+		zip $ZIPFILE -j $m
+		for f in `dirname $m`/files/*
+		do
+			zip $ZIPFILE -j "$f"
+		done
+		SWORD_OUTFILE=simplezip
+		sword_post collections/$SWORD_CURRENT/works/ $SWORD_OUTFILE \
+			'--data-binary' "@${ZIPFILE}" \
+			'--header' 'Content-Disposition: attachment; filename=deposit.zip' \
+			'--header' 'Packaging: http://purl.org/net/sword/package/SimpleZip' \
+			"${sARGS[@]}" \
+			'--header' 'Content-type: application/zip'
+		sARGS=()
+		rm $ZIPFILE
 	done
 done
 
