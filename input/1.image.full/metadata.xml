@@ -8,7 +8,7 @@
   <keyword>Dog</keyword>
   <keyword>Bone</keyword>
   <keyword>Carpet</keyword>
-  <identifier>20241117_122201.jpg</identfier>
+  <identifier>20241117_122201.jpg</identifier>
   <lease_expiration_date>2026-01-01</lease_expiration_date>
   <license>https://creativecommons.org/licenses/by-nc-sa/4.0/</license>
   <name>Tuber, rolling</name>
@@ -20,5 +20,5 @@
   <title>Rolling Tuber</title>
   <visibility_after_lease>restricted</visibility_after_lease>
   <visibility_during_lease>authenticated</visibility_during_lease>
-  <visibility>restricted</visibility>
+  <visibility>lease</visibility>
 </metadata>
