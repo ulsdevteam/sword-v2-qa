@@ -1,0 +1,23 @@
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:h4cmeta="https://hykucommons.org/schema/metadata" xmlns:h4csys="https://hykucommons.org/schema/system">
+    <title>DPC_RAM_forward_plan_template_v01.docx</title>
+    <content rel="src" href="https://pittir.palni-palci-knapsack-friends.notch8.cloud/sword/collections/704822a6-5058-4cb6-83da-02d7144d15a2/works/7115398e-cd59-4cd0-9468-4cc45cb64c40/file_sets/880bd9c8-403a-4953-ab84-519f66204e72"/>
+    <link rel="edit" href="https://pittir.palni-palci-knapsack-friends.notch8.cloud/sword/collections/704822a6-5058-4cb6-83da-02d7144d15a2/works/7115398e-cd59-4cd0-9468-4cc45cb64c40/file_sets/880bd9c8-403a-4953-ab84-519f66204e72"/>
+    <h4csys:id>880bd9c8-403a-4953-ab84-519f66204e72</h4csys:id>
+    <h4csys:internal_resource>FileSet</h4csys:internal_resource>
+    <h4csys:created_at>2025-04-09 20:09:38 UTC</h4csys:created_at>
+    <h4csys:updated_at>2025-04-10 14:22:00 UTC</h4csys:updated_at>
+    <h4csys:new_record>false</h4csys:new_record>
+    <h4csys:date_modified>2025-04-10T14:22:00+00:00</h4csys:date_modified>
+    <h4csys:date_uploaded>2025-04-10T14:22:00+00:00</h4csys:date_uploaded>
+    <h4csys:depositor>ctgraham@pitt.edu</h4csys:depositor>
+    <h4cmeta:title>DPC_RAM_forward_plan_template_v01.docx</h4cmeta:title>
+    <h4cmeta:creator>ctgraham@pitt.edu</h4cmeta:creator>
+    <h4cmeta:label>_DPC_RAM_forward_plan_template_v01.docx_</h4cmeta:label>
+    <h4cmeta:file_ids>39161b87-7f7a-469a-852b-ca3df0287c00</h4cmeta:file_ids>
+    <h4cmeta:file_ids>bbda18c9-accd-4d03-ad02-1642a5b36514</h4cmeta:file_ids>
+    <h4cmeta:file_ids>8111f918-4f5b-4d7a-b16c-52cf165d20eb</h4cmeta:file_ids>
+    <dc:title>DPC_RAM_forward_plan_template_v01.docx</dc:title>
+    <dc:creator>ctgraham@pitt.edu</dc:creator>
+    <dcterms:modified>2025-04-10T14:22:00+00:00</dcterms:modified>
+    <dcterms:dateSubmitted>2025-04-10T14:22:00+00:00</dcterms:dateSubmitted>
+</feed>

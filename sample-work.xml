@@ -1,0 +1,59 @@
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:h4cmeta="https://hykucommons.org/schema/metadata" xmlns:h4csys="https://hykucommons.org/schema/system">
+    <title>DPC's Rapid Assessment Model (version 3)</title>
+    <content rel="src" href="https://pittir.palni-palci-knapsack-friends.notch8.cloud/sword/collections/704822a6-5058-4cb6-83da-02d7144d15a2/works/7115398e-cd59-4cd0-9468-4cc45cb64c40"/>
+    <link rel="edit" href="https://pittir.palni-palci-knapsack-friends.notch8.cloud/sword/collections/704822a6-5058-4cb6-83da-02d7144d15a2/works/7115398e-cd59-4cd0-9468-4cc45cb64c40/file_sets"/>
+    <entry>
+        <content rel="src" href="https://pittir.palni-palci-knapsack-friends.notch8.cloud/sword/collections/704822a6-5058-4cb6-83da-02d7144d15a2/works/7115398e-cd59-4cd0-9468-4cc45cb64c40/file_sets/c9b928f0-4f47-4bba-84d9-0a540b1ab306"/>
+        <link rel="edit" href="https://pittir.palni-palci-knapsack-friends.notch8.cloud/sword/collections/704822a6-5058-4cb6-83da-02d7144d15a2/works/7115398e-cd59-4cd0-9468-4cc45cb64c40/file_sets/c9b928f0-4f47-4bba-84d9-0a540b1ab306"/>
+    </entry>
+    <entry>
+        <content rel="src" href="https://pittir.palni-palci-knapsack-friends.notch8.cloud/sword/collections/704822a6-5058-4cb6-83da-02d7144d15a2/works/7115398e-cd59-4cd0-9468-4cc45cb64c40/file_sets/284d658f-208b-4505-a294-5e0abe1e8cd4"/>
+        <link rel="edit" href="https://pittir.palni-palci-knapsack-friends.notch8.cloud/sword/collections/704822a6-5058-4cb6-83da-02d7144d15a2/works/7115398e-cd59-4cd0-9468-4cc45cb64c40/file_sets/284d658f-208b-4505-a294-5e0abe1e8cd4"/>
+    </entry>
+    <h4csys:id>7115398e-cd59-4cd0-9468-4cc45cb64c40</h4csys:id>
+    <h4csys:internal_resource>GenericWork</h4csys:internal_resource>
+    <h4csys:created_at>2025-04-01 12:11:33 UTC</h4csys:created_at>
+    <h4csys:updated_at>2025-04-01 12:11:39 UTC</h4csys:updated_at>
+    <h4csys:new_record>false</h4csys:new_record>
+    <h4csys:date_modified>2025-04-01T12:11:39+00:00</h4csys:date_modified>
+    <h4csys:date_uploaded>2025-04-01T12:11:39+00:00</h4csys:date_uploaded>
+    <h4csys:depositor>ctgraham@pitt.edu</h4csys:depositor>
+    <h4csys:state>http://fedora.info/definitions/1/0/access/ObjState#active</h4csys:state>
+    <h4cmeta:title>DPC's Rapid Assessment Model (version 3)</h4cmeta:title>
+    <h4cmeta:admin_set_id>7d724b7b-af40-40c8-bee7-36c726605287</h4cmeta:admin_set_id>
+    <h4cmeta:member_ids>c9b928f0-4f47-4bba-84d9-0a540b1ab306</h4cmeta:member_ids>
+    <h4cmeta:member_ids>284d658f-208b-4505-a294-5e0abe1e8cd4</h4cmeta:member_ids>
+    <h4cmeta:member_of_collection_ids>2854b142-907e-4ab1-ac40-dd20d4d495d1</h4cmeta:member_of_collection_ids>
+    <h4cmeta:member_of_collection_ids>2ddb6bdf-bffb-4951-8fed-6c44a02a7fc5</h4cmeta:member_of_collection_ids>
+    <h4cmeta:representative_id>c9b928f0-4f47-4bba-84d9-0a540b1ab306</h4cmeta:representative_id>
+    <h4cmeta:thumbnail_id>c9b928f0-4f47-4bba-84d9-0a540b1ab306</h4cmeta:thumbnail_id>
+    <h4cmeta:based_near>Glasgow, Scotland, United Kingdom</h4cmeta:based_near>
+    <h4cmeta:creator>Digital Preservation Coalition</h4cmeta:creator>
+    <h4cmeta:keyword>Digital Preservation</h4cmeta:keyword>
+    <h4cmeta:rights_statement>http://rightsstatements.org/vocab/InC/1.0/</h4cmeta:rights_statement>
+    <h4cmeta:resource_type>Text</h4cmeta:resource_type>
+    <h4cmeta:license>https://creativecommons.org/licenses/by-nc-sa/4.0/</h4cmeta:license>
+    <h4cmeta:admin_note>Stolen from https://www.dpconline.org/digipres/implement-digipres/dpc-ram/download-dpc-ram</h4cmeta:admin_note>
+    <h4cmeta:contributor>William</h4cmeta:contributor>
+    <h4cmeta:date_created>2024-03-27</h4cmeta:date_created>
+    <h4cmeta:description>This document includes introductory information about the history and structure of the model, details of how it should be used, and the model itself. The document also includes a RAM worksheet that can be printed out and used to carry out a RAM assessment.</h4cmeta:description>
+    <h4cmeta:identifier>http://doi.org/10.7207/dpcram24-03</h4cmeta:identifier>
+    <h4cmeta:publisher>Digital Preservation Coalition</h4cmeta:publisher>
+    <h4cmeta:related_url>https://www.dpconline.org/digipres/implement-digipres/dpc-ram/download-dpc-ram</h4cmeta:related_url>
+    <h4cmeta:source>https://www.dpconline.org/digipres/implement-digipres/dpc-ram/download-dpc-ram</h4cmeta:source>
+    <h4cmeta:show_pdf_viewer>1</h4cmeta:show_pdf_viewer>
+    <h4cmeta:show_pdf_download_button>1</h4cmeta:show_pdf_download_button>
+    <dc:title>DPC's Rapid Assessment Model (version 3)</dc:title>
+    <dc:creator>Digital Preservation Coalition</dc:creator>
+    <dc:rights>http://rightsstatements.org/vocab/InC/1.0/</dc:rights>
+    <dc:type>Text</dc:type>
+    <dcterms:license>https://creativecommons.org/licenses/by-nc-sa/4.0/</dcterms:license>
+    <dc:contributor>William</dc:contributor>
+    <dc:date>2024-03-27</dc:date>
+    <dc:description>This document includes introductory information about the history and structure of the model, details of how it should be used, and the model itself. The document also includes a RAM worksheet that can be printed out and used to carry out a RAM assessment.</dc:description>
+    <dc:identifier>http://doi.org/10.7207/dpcram24-03</dc:identifier>
+    <dc:publisher>Digital Preservation Coalition</dc:publisher>
+    <dc:source>https://www.dpconline.org/digipres/implement-digipres/dpc-ram/download-dpc-ram</dc:source>
+    <dcterms:modified>2025-04-01T12:11:39+00:00</dcterms:modified>
+    <dcterms:dateSubmitted>2025-04-01T12:11:39+00:00</dcterms:dateSubmitted>
+</feed>
