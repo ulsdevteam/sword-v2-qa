@@ -1,0 +1,217 @@
+Title,Method,URI,Headers,Form,Payload,Expected,Store,Test,NS
+Set Configuration,FILE,config.xml,,,,,"BASE_URL=/config/base_url
+DEFAULT_ADMIN_SET=/config/default_admin_set
+COLLECTION_ID=/config/rw_collection_id
+RO_COLLECTION_ID=/config/ro_collection_id
+DENY_COLLECTION_ID=/config/deny_collection_id
+API_KEY=/config/api_key",,
+Service document available,GET,$BASE_URL/sword/v2/service_document,"Api-key: $API_KEY
+Content-type: application/xml",,,200,,"2.0=/app:service/sword:version
+*=/app:service/app:workspace/app:collection[@href=""$BASE_URL/sword/v2/collections/$COLLECTION_ID""]
+*=/app:service/app:workspace/app:collection[@href=""$BASE_URL/sword/v2/collections/$RO_COLLECTION_ID""]
+*=/app:service/app:workspace/app:collection[@href=""$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET""]","app=http://www.w3.org/2007/app
+sword=http://purl.org/net/sword/terms/"
+Service document available via legacy,GET,$BASE_URL/sword/service_document,"Api-key: $API_KEY
+Content-type: application/xml",,,200,,"2.0=/app:service/sword:version
+*=/app:service/app:workspace/app:collection[@href=""$BASE_URL/sword/collections/$COLLECTION_ID""]
+*=/app:service/app:workspace/app:collection[@href=""$BASE_URL/sword/collections/$RO_COLLECTION_ID""]
+*=/app:service/app:workspace/app:collection[@href=""$BASE_URL/sword/collections/$DEFAULT_ADMIN_SET""]","app=http://www.w3.org/2007/app
+sword=http://purl.org/net/sword/terms/"
+Service document not available without API key,GET,$BASE_URL/sword/v2/service_document,Content-type: application/xml,,,403,,*=/sword:error/atom:title,"sword=http://purl.org/net/sword/
+atom=http://www.w3.org/2005/Atom"
+Service document not available without API key legacy,GET,$BASE_URL/sword/service_document,Content-type: application/xml,,,403,,*=/sword:error/atom:title,"sword=http://purl.org/net/sword/
+atom=http://www.w3.org/2005/Atom"
+Service document not available with bad API key,GET,$BASE_URL/sword/v2/service_document,"Api-key: does-not-exist
+Content-type: application/xml",,,403,,*=/sword:error/atom:title,"sword=http://purl.org/net/sword/
+atom=http://www.w3.org/2005/Atom"
+Service document not available with bad API key legacy,GET,$BASE_URL/sword/service_document,"Api-key: does-not-exist
+Content-type: application/xml",,,403,,*=/sword:error/atom:title,"sword=http://purl.org/net/sword/
+atom=http://www.w3.org/2005/Atom"
+Default admin set available,GET,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET,"Api-key: $API_KEY
+Content-type: application/xml",,,200,,"$DEFAULT_ADMIN_SET=/atom:feed/atom:id
+$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET=/atom:feed/atom:link[@rel=""edit""]/@href",atom=http://www.w3.org/2005/Atom
+Default admin set available via legacy,GET,$BASE_URL/sword/collections/$DEFAULT_ADMIN_SET,"Api-key: $API_KEY
+Content-type: application/xml",,,200,,"$BASE_URL/sword/collections/$DEFAULT_ADMIN_SET/works=/atom:feed/atom:link[@rel=""edit""]/@href",atom=http://www.w3.org/2005/Atom
+Named collection available,GET,$BASE_URL/sword/v2/collections/$COLLECTION_ID,"Api-key: $API_KEY
+Content-type: application/xml",,,200,,"$COLLECTION_ID=/atom:feed/atom:id
+$BASE_URL/sword/v2/collections/$COLLECTION_ID=/atom:feed/atom:link[@rel=""edit""]/@href",atom=http://www.w3.org/2005/Atom
+Named collection available via legacy,GET,$BASE_URL/sword/collections/$COLLECTION_ID,"Api-key: $API_KEY
+Content-type: application/xml",,,200,,"$BASE_URL/sword/collections/$COLLECTION_ID/works=/atom:feed/atom:link[@rel=""edit""]/@href",atom=http://www.w3.org/2005/Atom
+Set Generic Minimal Metadata,FILE,files/generic.minimal.xml,,,,,"METADATA_TITLE=/metadata/title
+METADATA_CREATOR=/metadata/creator
+METADATA_KEYWORD=/metadata/keyword
+METADATA_RESOURCE=/metadata/resource_type
+METADATA_RIGHTS=/metadata/rights_statement
+METADATA_VISIBILITY=/metadata/visibility",,
+Submit binary Hyku metadata only,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
+Content-type: application/xml
+Packaging: application/atom+xml;type=entry",,files/generic.minimal.xml,201,WORK_ID=/atom:entry/atom:id,"*=/atom:entry/atom:id
+$METADATA_TITLE=/atom:entry/hykumeta:title
+$METADATA_CREATOR=/atom:entry/hykumeta:creator
+$METADATA_KEYWORD=/atom:entry/hykumeta:keyword
+$METADATA_RESOURCE=/atom:entry/hykumeta:resource_type
+$METADATA_RIGHTS=/atom:entry/hykumeta:rights_statement
+$METADATA_VISIBILITY=/atom:entry/hykumeta:visibility
+$METADATA_TITLE=/atom:entry/dc:title
+$METADATA_CREATOR=/atom:entry/dc:creator
+$METADATA_RESOURCE=/atom:entry/dc:type
+$METADATA_RIGHTS=/atom:entry/dc:rights","atom=http://www.w3.org/2005/Atom
+hykumeta=https://hykucommons.org/schema/metadata
+dc=http://purl.org/dc/elements/1.1/"
+Fetch binary Hyku metadata only,GET,$BASE_URL/sword/v2/works/$WORK_ID,"Api-key: $API_KEY
+Content-type: application/xml",,,200,,"$WORK_ID=/atom:entry/atom:id
+$METADATA_TITLE=/atom:entry/hykumeta:title
+$METADATA_CREATOR=/atom:entry/hykumeta:creator
+$METADATA_KEYWORD=/atom:entry/hykumeta:keyword
+$METADATA_RESOURCE=/atom:entry/hykumeta:resource_type
+$METADATA_RIGHTS=/atom:entry/hykumeta:rights_statement
+$METADATA_VISIBILITY=/atom:entry/hykumeta:visibility
+$METADATA_TITLE=/atom:entry/dc:title
+$METADATA_CREATOR=/atom:entry/dc:creator
+$METADATA_RESOURCE=/atom:entry/dc:type
+$METADATA_RIGHTS=/atom:entry/dc:rights","atom=http://www.w3.org/2005/Atom
+hykumeta=https://hykucommons.org/schema/metadata
+dc=http://purl.org/dc/elements/1.1/"
+Fetch binary Hyku metadata only legacy,GET,$BASE_URL/sword/collections/notused/works/$WORK_ID,"Api-key: $API_KEY
+Content-type: application/xml",,,200,,"*=/atom:feed/atom:link[@rel=""edit"" and @href=""$BASE_URL/sword/collections/$DEFAULT_ADMIN_SET/works/$WORK_ID/file_sets""]
+$METADATA_TITLE=/atom:feed/hykumeta:title
+$METADATA_CREATOR=/atom:feed/hykumeta:creator
+$METADATA_KEYWORD=/atom:feed/hykumeta:keyword
+$METADATA_RESOURCE=/atom:feed/hykumeta:resource_type
+$METADATA_RIGHTS=/atom:feed/hykumeta:rights_statement
+$METADATA_VISIBILITY=/atom:feed/hykumeta:visibility
+$METADATA_TITLE=/atom:feed/dc:title
+$METADATA_CREATOR=/atom:feed/dc:creator
+$METADATA_RESOURCE=/atom:feed/dc:type
+$METADATA_RIGHTS=/atom:feed/dc:rights","atom=http://www.w3.org/2005/Atom
+hykumeta=https://hykucommons.org/schema/metadata
+dc=http://purl.org/dc/elements/1.1/"
+Submit binary Hyku metadata only (legacy),POST,$BASE_URL/sword/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
+Content-type: application/xml
+Packaging: application/atom+xml;type=entry",,files/generic.minimal.xml,201,"WORK_ID=substring-after(substring-before(/atom:feed/atom:link[@rel=""edit""]/@href,""/file_sets""),""/works/"")","*=/atom:feed/atom:content[@rel=""src""]/@href","atom=http://www.w3.org/2005/Atom
+hykumeta=https://hykucommons.org/schema/metadata
+dc=http://purl.org/dc/elements/1.1/"
+Fetch work in collection,GET,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/,"Api-key: $API_KEY
+Content-type: application/xml",,,200,,"*=/atom:feed/atom:entry/atom:link[@rel=""edit"" and @href=""$BASE_URL/sword/v2/works/$WORK_ID""]",atom=http://www.w3.org/2005/Atom
+Fetch work in collection legacy,GET,$BASE_URL/sword/collections/$DEFAULT_ADMIN_SET/,"Api-key: $API_KEY
+Content-type: application/xml",,,200,,"*=/atom:feed/atom:entry/atom:link[@rel=""edit"" and @href=""$BASE_URL/sword/collections/$DEFAULT_ADMIN_SET/works/$WORK_ID/file_sets""]",atom=http://www.w3.org/2005/Atom
+Submit binary DC metadata only,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
+Content-type: application/xml
+Packaging: application/atom+xml;type=entry",,files/generic.minimal.dc,201,,*=/atom:entry/atom:id,atom=http://www.w3.org/2005/Atom
+Submission fails with bad XML,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
+Content-type: application/xml
+Packaging: application/atom+xml;type=entry",,files/generic.bad.xml,500,,*=/sword:error/atom:title,"sword=http://purl.org/net/sword/
+atom=http://www.w3.org/2005/Atom"
+Submit form Hyku metadata,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
+Content-type: application/xml",metadata=files/generic.minimal.xml,,201,,*=/atom:entry/atom:id,atom=http://www.w3.org/2005/Atom
+Submit SimpleZip work,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
+Content-type: application/xml
+Packaging: http://purl.org/net/sword/package/SimpleZip",,files/SimpleZip.zip,201,WORK_ID=/atom:entry/atom:id,*=/atom:entry/atom:id,atom=http://www.w3.org/2005/Atom
+Get SimpleZip work,GET,$BASE_URL/sword/v2/works/$WORK_ID,"Api-key: $API_KEY
+Content-type: application/xml",,,200,"FILE_URL=/atom:entry/atom:link[@rel=""edit-media""][0]/@href",$WORK_ID=/atom:entry/atom:id,atom=http://www.w3.org/2005/Atom
+Get SimpleZip file,GET,$FILE_URL,"Api-key: $API_KEY
+Content-type: application/xml",,,200,,"*=/atom:entry/atom:link[@rel=""edit""][@href=""$FILE_URL""]",atom=http://www.w3.org/2005/Atom
+Submit BagIt work,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
+Content-type: application/xml
+Packaging: http://purl.org/net/sword/package/BagIt",,files/BagIt.zip,201,WORK_ID=/atom:entry/atom:id,*=/atom:entry/atom:id,atom=http://www.w3.org/2005/Atom
+Get BagIt work,GET,$BASE_URL/sword/v2/works/$WORK_ID,"Api-key: $API_KEY
+Content-type: application/xml",,,200,"FILE_URL=/atom:entry/atom:link[@rel=""edit-media""][0]/@href",,atom=http://www.w3.org/2005/Atom
+Get BagIt file,GET,$FILE_URL,"Api-key: $API_KEY
+Content-type: application/xml",,,200,,"*=/atom:entry/atom:link[@rel=""edit""][@href=""$FILE_URL""]",atom=http://www.w3.org/2005/Atom
+Submission fails with bad Bag,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
+Content-type: application/xml
+Packaging: http://purl.org/net/sword/package/BagIt",,files/BadBagIt.zip,500,,*=/sword:error/atom:title,"sword=http://purl.org/net/sword/
+atom=http://www.w3.org/2005/Atom"
+Submit form and SimpleZip,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
+Content-type: application/xml
+Packaging: http://purl.org/net/sword/package/SimpleZip",metadata=files/generic.minimal.xml,files/SimpleZip.zip,201,,,
+Submit form and SimpleZip with conflicting metadata,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
+Content-type: application/xml
+Packaging: http://purl.org/net/sword/package/SimpleZip",metadata=files/generic.minimal.xml,files/SimpleZip.zip,201,,,
+Set ETD Metadata,FILE,files/etd.full.xml,,,,,"METADATA_TITLE=/metadata/title
+METADATA_CREATOR=/metadata/creator
+METADATA_KEYWORD=/metadata/keyword[0]
+METADATA_RESOURCE=/metadata/resource_type
+METADATA_RIGHTS=/metadata/rights_statement
+METADATA_VISIBILITY=/metadata/visibility
+METADATA_ABSTRACT=/metadata/abstract
+METADATA_COMMITTEE_MEMBER=/metadata/committee_member[last()]
+METADATA_CONTRIBUTOR=/metadata/contributor
+METADATA_DATE=/metadata/date
+METADATA_DEGREE_DISCIPLINE=/metadata/degree_discipline
+METADATA_DEGREE_GRANTOR=/metadata/degree_grantor
+METADATA_DEGREE_NAME=/metadata/degree_name
+METADATA_DEGREE_LEVEL=/metadata/degree_level
+METADATA_DESCRIPTION=/metadata/description
+METADATA_IDENTIFIER=/metadata/identifier
+METADATA_KEYWORDS=/metadata/keyword
+METADATA_LICENSE=/metadata/license
+METADATA_PUBLISHER=/metadata/publisher
+METADATA_RELATED_URL=/metadata/related_url
+METADATA_SOURCE=/metadata/source
+METADATA_LANGUAGE=/metadata/language
+METADATA_ADVISOR=/metadata/advisor
+METADATA_EMBARGO_RELEASE_DATE=/metadata/embargo_release_date
+METADATA_VISIBILITY_DURING_EMBARGO=/metadata/visibility_during_embargo
+METADATA_VISIBILITY_AFTER_EMBARGO=/metadata/visiblity_after_embargo",,
+Submit work with embargo,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
+Content-type: application/xml
+Packaging: http://purl.org/net/sword/package/SimpleZip",,files/EtdEmbargo.zip,201,WORK_ID=/atom:entry/atom:id,"$METADATA_TITLE=/atom:entry/hykumeta:title
+$METADATA_CREATOR=/atom:entry/hykumeta:creator
+$METADATA_KEYWORD=/atom:entry/hykumeta:keyword[0]
+$METADATA_RESOURCE=/atom:entry/hykumeta:resource_type
+$METADATA_RIGHTS=/atom:entry/hykumeta:rights_statement
+$METADATA_VISIBILITY=/atom:entry/hykumeta:visibility
+$METADATA_ABSTRACT=/atom:entry/hykumeta:abstract
+$METADATA_COMMITTEE_MEMBER=/atom:entry/hykumeta:committee_member[last()]
+$METADATA_CONTRIBUTOR=/atom:entry/hykumeta:contributor
+$METADATA_DATE=/atom:entry/hykumeta:date
+$METADATA_DEGREE_DISCIPLINE=/atom:entry/hykumeta:degree_discipline
+$METADATA_DEGREE_GRANTOR=/atom:entry/hykumeta:degree_grantor
+$METADATA_DEGREE_NAME=/atom:entry/hykumeta:degree_name
+$METADATA_DEGREE_LEVEL=/atom:entry/hykumeta:degree_level
+$METADATA_DESCRIPTION=/atom:entry/hykumeta:description
+$METADATA_IDENTIFIER=/atom:entry/hykumeta:identifier
+$METADATA_KEYWORDS=/atom:entry/hykumeta:keyword
+$METADATA_LICENSE=/atom:entry/hykumeta:license
+$METADATA_PUBLISHER=/atom:entry/hykumeta:publisher
+$METADATA_RELATED_URL=/atom:entry/hykumeta:related_url
+$METADATA_SOURCE=/atom:entry/hykumeta:source
+$METADATA_LANGUAGE=/atom:entry/hykumeta:language
+$METADATA_ADVISOR=/atom:entry/hykumeta:advisor
+$METADATA_EMBARGO_RELEASE_DATE=/atom:entry/hykumeta:embargo_release_date
+$METADATA_VISIBILITY_DURING_EMBARGO=/atom:entry/hykumeta:visibility_during_embargo
+$METADATA_VISIBILITY_AFTER_EMBARGO=/atom:entry/hykumeta:visiblity_after_embargo","atom=http://www.w3.org/2005/Atom
+hykumeta=https://hykucommons.org/schema/metadata
+dc=http://purl.org/dc/elements/1.1/"
+Submit work with embargo legacy,POST,$BASE_URL/sword/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
+Content-type: application/xml
+Packaging: http://purl.org/net/sword/package/SimpleZip
+Hyrax-Work-Model: Etd",,files/EtdEmbargo.zip,201,,"$METADATA_TITLE=/atom:feed/hykumeta:title
+$METADATA_CREATOR=/atom:feed/hykumeta:creator
+$METADATA_KEYWORD=/atom:feed/hykumeta:keyword[0]
+$METADATA_RESOURCE=/atom:feed/hykumeta:resource_type
+$METADATA_RIGHTS=/atom:feed/hykumeta:rights_statement
+$METADATA_VISIBILITY=/atom:feed/hykumeta:visibility
+$METADATA_ABSTRACT=/atom:feed/hykumeta:abstract
+$METADATA_COMMITTEE_MEMBER=/atom:feed/hykumeta:committee_member[last()]
+$METADATA_CONTRIBUTOR=/atom:feed/hykumeta:contributor
+$METADATA_DATE=/atom:feed/hykumeta:date
+$METADATA_DEGREE_DISCIPLINE=/atom:feed/hykumeta:degree_discipline
+$METADATA_DEGREE_GRANTOR=/atom:feed/hykumeta:degree_grantor
+$METADATA_DEGREE_NAME=/atom:feed/hykumeta:degree_name
+$METADATA_DEGREE_LEVEL=/atom:feed/hykumeta:degree_level
+$METADATA_DESCRIPTION=/atom:feed/hykumeta:description
+$METADATA_IDENTIFIER=/atom:feed/hykumeta:identifier
+$METADATA_KEYWORDS=/atom:feed/hykumeta:keyword
+$METADATA_LICENSE=/atom:feed/hykumeta:license
+$METADATA_PUBLISHER=/atom:feed/hykumeta:publisher
+$METADATA_RELATED_URL=/atom:feed/hykumeta:related_url
+$METADATA_SOURCE=/atom:feed/hykumeta:source
+$METADATA_LANGUAGE=/atom:feed/hykumeta:language
+$METADATA_ADVISOR=/atom:feed/hykumeta:advisor
+$METADATA_EMBARGO_RELEASE_DATE=/atom:feed/hykumeta:embargo_release_date
+$METADATA_VISIBILITY_DURING_EMBARGO=/atom:feed/hykumeta:visibility_during_embargo
+$METADATA_VISIBILITY_AFTER_EMBARGO=/atom:feed/hykumeta:visiblity_after_embargo","atom=http://www.w3.org/2005/Atom
+hykumeta=https://hykucommons.org/schema/metadata
+dc=http://purl.org/dc/elements/1.1/"

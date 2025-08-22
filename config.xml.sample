@@ -1,0 +1,14 @@
+<config>
+  <!-- base URL to the Hyku instance, '/sword/*' will be added -->
+  <base_url>https://demo.hykucommons.org</base_url>
+  <!-- What is the UUID of the default admin set? -->
+  <default_admin_set>d2598a2b-8202-43db-a990-6ab7c3f42006</default_admin_set>
+  <!-- What is a UUID of a user collection where deposits are expected? -->
+  <rw_collection_id>7eb9164f-6c8b-4d02-b979-14ee2d107363</rw_collection_id>
+  <!-- What is a UUID of a visible user collection where deposits are not allowed? -->
+  <ro_collection_id>50b66be8-7019-49f2-93a2-6546a7a5f2fa</ro_collection_id>
+  <!-- What is a UUID of a restricted user collection where nothing is allowed? -->
+  <deny_collection_id>1fcb3ee8-c6da-49ff-8272-34a88f2dd49b</deny_collection_id>
+  <!-- What is the API key for the user with these permissions? -->
+  <api_key>0302f8b0-8f4b-4ae0-ac70-69594a6cdce9</api_key>
+</config>
