@@ -94,6 +94,15 @@ def test_http_request(row_number, row):
             print(f"#{row_number} Success. {row['Title']}")
     if row['Store']:
         store_variables(row['Store'], xmlfile, namespaces)
+        failed_store = False
+        for line in row['Store'].splitlines():
+            key, value = line.split('=', 1)
+            if not variables[key]:
+               if not failed_store:
+                    print(f"Bad lookup for #{row_number}, {row['Title']}", file=sys.stderr)
+                    write_to_tempfile(row_number, response.content)
+               failed_store = True
+               print(f"#{row_number} Failed. Tried {value}", file=sys.stderr)
 
 def string_to_dictionary(string):
     dictionary = {}

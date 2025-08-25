@@ -73,13 +73,12 @@ $METADATA_RIGHTS=/atom:entry/dc:rights","atom=http://www.w3.org/2005/Atom
 hykumeta=https://hykucommons.org/schema/metadata
 dc=http://purl.org/dc/elements/1.1/"
 Fetch binary Hyku metadata only legacy,GET,$BASE_URL/sword/collections/notused/works/$WORK_ID,"Api-key: $API_KEY
-Content-type: application/xml",,,200,,"*=/atom:feed/atom:link[@rel=""edit"" and @href=""$BASE_URL/sword/collections/$DEFAULT_ADMIN_SET/works/$WORK_ID/file_sets""]
+Content-type: application/xml",,,200,,"*=/atom:feed/atom:link[@rel=""edit"" and @href=""$BASE_URL/sword/collections/notused/works/$WORK_ID/file_sets""]
 $METADATA_TITLE=/atom:feed/hykumeta:title
 $METADATA_CREATOR=/atom:feed/hykumeta:creator
 $METADATA_KEYWORD=/atom:feed/hykumeta:keyword
 $METADATA_RESOURCE=/atom:feed/hykumeta:resource_type
 $METADATA_RIGHTS=/atom:feed/hykumeta:rights_statement
-$METADATA_VISIBILITY=/atom:feed/hykumeta:visibility
 $METADATA_TITLE=/atom:feed/dc:title
 $METADATA_CREATOR=/atom:feed/dc:creator
 $METADATA_RESOURCE=/atom:feed/dc:type
@@ -108,14 +107,14 @@ Submit SimpleZip work,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/wor
 Content-type: application/xml
 Packaging: http://purl.org/net/sword/package/SimpleZip",,files/SimpleZip.zip,201,WORK_ID=/atom:entry/atom:id,*=/atom:entry/atom:id,atom=http://www.w3.org/2005/Atom
 Get SimpleZip work,GET,$BASE_URL/sword/v2/works/$WORK_ID,"Api-key: $API_KEY
-Content-type: application/xml",,,200,"FILE_URL=/atom:entry/atom:link[@rel=""edit-media""][0]/@href",$WORK_ID=/atom:entry/atom:id,atom=http://www.w3.org/2005/Atom
+Content-type: application/xml",,,200,"FILE_URL=/atom:entry/atom:link[@rel=""edit-media""][1]/@href",$WORK_ID=/atom:entry/atom:id,atom=http://www.w3.org/2005/Atom
 Get SimpleZip file,GET,$FILE_URL,"Api-key: $API_KEY
 Content-type: application/xml",,,200,,"*=/atom:entry/atom:link[@rel=""edit""][@href=""$FILE_URL""]",atom=http://www.w3.org/2005/Atom
 Submit BagIt work,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
 Content-type: application/xml
 Packaging: http://purl.org/net/sword/package/BagIt",,files/BagIt.zip,201,WORK_ID=/atom:entry/atom:id,*=/atom:entry/atom:id,atom=http://www.w3.org/2005/Atom
 Get BagIt work,GET,$BASE_URL/sword/v2/works/$WORK_ID,"Api-key: $API_KEY
-Content-type: application/xml",,,200,"FILE_URL=/atom:entry/atom:link[@rel=""edit-media""][0]/@href",,atom=http://www.w3.org/2005/Atom
+Content-type: application/xml",,,200,"FILE_URL=/atom:entry/atom:link[@rel=""edit-media""][1]/@href",,atom=http://www.w3.org/2005/Atom
 Get BagIt file,GET,$FILE_URL,"Api-key: $API_KEY
 Content-type: application/xml",,,200,,"*=/atom:entry/atom:link[@rel=""edit""][@href=""$FILE_URL""]",atom=http://www.w3.org/2005/Atom
 Submission fails with bad Bag,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
@@ -124,10 +123,10 @@ Packaging: http://purl.org/net/sword/package/BagIt",,files/BadBagIt.zip,500,,*=/
 atom=http://www.w3.org/2005/Atom"
 Submit form and SimpleZip,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
 Content-type: application/xml
-Packaging: http://purl.org/net/sword/package/SimpleZip",metadata=files/generic.minimal.xml,files/SimpleZip.zip,201,,,
+Packaging: http://purl.org/net/sword/package/SimpleZip",metadata=files/generic.minimal.xml,files/SimpleZip.zip,201,,*=/atom:entry/atom:id,atom=http://www.w3.org/2005/Atom
 Submit form and SimpleZip with conflicting metadata,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
 Content-type: application/xml
-Packaging: http://purl.org/net/sword/package/SimpleZip",metadata=files/generic.minimal.xml,files/SimpleZip.zip,201,,,
+Packaging: http://purl.org/net/sword/package/SimpleZip",metadata=files/generic.minimal.xml,files/SimpleZip.zip,201,,*=/atom:entry/atom:id,atom=http://www.w3.org/2005/Atom
 Set ETD Metadata,FILE,files/etd.full.xml,,,,,"METADATA_TITLE=/metadata/title
 METADATA_CREATOR=/metadata/creator
 METADATA_KEYWORD=/metadata/keyword[0]

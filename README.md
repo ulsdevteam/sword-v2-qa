@@ -55,7 +55,8 @@ Tests are defined in CSV format, using the following colunms:
 * Test: Multiline assertions in the form of `Expected=/xpath/expression[@attr="value"]`
   * Variables will be interpolated
   * Use a left hand wildcard to indicate any value, e.g. `*=//element/subelement`
-  * `xml.etree.ElementTree`'s xpath syntax is supported
+  * `lxml`'s xpath syntax is supported
+* NS: Multiline namespace aliases in the form of `alias=uri://name.space/specification`
 
 ## License
 
