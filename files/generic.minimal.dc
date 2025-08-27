@@ -3,6 +3,6 @@
 <title>Minimal Generic Metadata</title>
 <creator>Aliquam augue</creator>
 <keyword>Pellentesque habitant morbi</keyword>
-<type>Text</resource_type>
-<rights>http://rightsstatements.org/vocab/InC/1.0/</rights_statement>
+<type>Text</type>
+<rights>http://rightsstatements.org/vocab/InC/1.0/</rights>
 </dc>

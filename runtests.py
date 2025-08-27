@@ -16,22 +16,22 @@ import os
 variables = {}
 
 def variable_replace(inputstring):
-"""
-Given a templated string, replace any variables found in the global variables dictionary
-inputstring: str A string containing variable names to be interpolated
-return: str The interpolated string
-"""
+    """
+    Given a templated string, replace any variables found in the global variables dictionary
+    inputstring: str A string containing variable names to be interpolated
+    return: str The interpolated string
+    """
     template_string = string.Template(inputstring)
     return template_string.substitute(variables)
 
 def xpath_lookup(xmlstring, xpath, nsmap):
-"""
-Lookup values in an XML document by XPath
-xmlstring: str A string of an XML document
-xpath: str The xpath expression to execute on the XML
-nsmap: dict The XML namespaces used by the xpath, in { alias: nsURI } form
-return: str A concatenation of all results as text output, or None
-"""
+    """
+    Lookup values in an XML document by XPath
+    xmlstring: str A string of an XML document
+    xpath: str The xpath expression to execute on the XML
+    nsmap: dict The XML namespaces used by the xpath, in { alias: nsURI } form
+    return: str A concatenation of all results as text output, or None
+    """
     if not xmlstring:
         return None
     stringio = StringIO(xmlstring)
@@ -48,12 +48,12 @@ return: str A concatenation of all results as text output, or None
     return return_string
 
 def write_to_tempfile(num, output):
-"""
-Write the output to a temporary file and announce the path to STDERR
-num: int The row number being processed
-output: str The raw response to record
-return: None
-"""
+    """
+    Write the output to a temporary file and announce the path to STDERR
+    num: int The row number being processed
+    output: str The raw response to record
+    return: None
+    """
     fh = tempfile.NamedTemporaryFile(prefix = str(num)+'_', dir = 'temp/', delete = False)
     fh.write(output)
     fname = os.path.realpath(fh.name)
@@ -61,12 +61,12 @@ return: None
     fh.close()
 
 def test_http_request(row_number, row):
-"""
-Process a CSV row as an HTTP test, write out success or failure to STDERR
-row_number: int The row in the CSV being processed
-row: dict The data from the CSV, in { header: row_value } form; see README for columns
-return: None
-"""
+    """
+    Process a CSV row as an HTTP test, write out success or failure to STDERR
+    row_number: int The row in the CSV being processed
+    row: dict The data from the CSV, in { header: row_value } form; see README for columns
+    return: None
+    """
     uri = variable_replace(row['URI'])
 
     all_headers = {}
@@ -132,11 +132,11 @@ return: None
                print(f"#{row_number} Failed. Tried {value}", file=sys.stderr)
 
 def string_to_dictionary(string):
-"""
-Given a multiline string of key value pairs, create a dictionary
-string: str A multiline string with lines in the form of "key=value"
-return: dict in the form of { key: value }
-"""
+    """
+    Given a multiline string of key value pairs, create a dictionary
+    string: str A multiline string with lines in the form of "key=value"
+    return: dict in the form of { key: value }
+    """
     dictionary = {}
     if string:
         for line in string.splitlines():
@@ -145,13 +145,13 @@ return: dict in the form of { key: value }
     return dictionary
 
 def store_variables(assignments, source, ns):
-"""
-Given variable names and xpaths, with an XML document and namespaces, find the value of the xpath in the XML and assign it to the variable name.  Modifies the global variables.
-assignments: str A multiline mapping of varible name to xpath, as "FOO_BAR=/fizz:foo/buzz:bar[@att='val']"
-source: str The XML against which to evaluate the xpaths
-ns: dict Key-value pairs of namespace aliases to URIs as used in the xpath
-return: None
-"""
+    """
+    Given variable names and xpaths, with an XML document and namespaces, find the value of the xpath in the XML and assign it to the variable name.  Modifies the global variables.
+    assignments: str A multiline mapping of varible name to xpath, as "FOO_BAR=/fizz:foo/buzz:bar[@att='val']"
+    source: str The XML against which to evaluate the xpaths
+    ns: dict Key-value pairs of namespace aliases to URIs as used in the xpath
+    return: None
+    """
     for line in assignments.splitlines():
         variable, xpath = line.split('=', 1)
         xpath = variable_replace(xpath)
@@ -162,9 +162,9 @@ return: None
             variables.pop(variable, None)
 
 def main():
-"""
-Read STDIN as a CSV, process each row as an HTTP test.  See README for columns.
-"""
+    """
+    Read STDIN as a CSV, process each row as an HTTP test.  See README for columns.
+    """
     reader = csv.DictReader(sys.stdin)
     for row_id, row in enumerate(reader, start=1):
         # row id skips the header, so spreadsheet lines shift one
