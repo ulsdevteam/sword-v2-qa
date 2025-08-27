@@ -53,7 +53,7 @@ mv temp/simplezip/BadBagIt.zip files/
 Create a version of the ETD metadata with and with embargo information.
 
 ```
-mkdir temp/etd; cp files/etd.full.xml temp/metadata.xml; cp files/*.pdf temp/etd/; cp files/*.png temp/etd/
+mkdir temp/etd; cp files/etd.full.xml temp/etd/metadata.xml; cp files/*.pdf temp/etd/; cp files/*.png temp/etd/
 zip -j files/EtdEmbargo.zip temp/etd/*
 sed 's|<visibility>embargo</visibility>|<visibility>open</visibility>|' files/etd.full.xml | sed 's|<embargo_release_date>.*||' | sed 's|<visibility_during_embargo>.*||' | sed 's|<visibility_after_embargo>.*||' > files/etd.noembargo.xml
 ```
