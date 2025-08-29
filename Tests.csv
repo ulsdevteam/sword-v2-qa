@@ -99,6 +99,78 @@ Content-Disposition: attachment; filename=PortableDocumentFormat.pdf",,files/Por
 $METADATA_VISIBILITY=/atom:entry/hykumeta:visibility","atom=http://www.w3.org/2005/Atom
 hykumeta=https://hykucommons.org/schema/metadata
 dc=http://purl.org/dc/elements/1.1/"
+Set full generic metadata,FILE,files/generic.full.xml,,,,,"METADATA_TITLE=/metadata/title
+METADATA_CREATOR=/metadata/creator
+METADATA_KEYWORD_COUNT=count(/metadata/keyword)
+METADATA_RESOURCE=/metadata/resource_type
+METADATA_RIGHTS=/metadata/rights_statement
+METADATA_VISIBILITY=/metadata/visibility
+METADATA_CONTRIBUTOR=/metadata/contributor
+METADATA_DATE_CREATED=/metadata/date_created
+METADATA_DESCRIPTION=/metadata/description
+METADATA_IDENTIFIER=/metadata/identifier
+METADATA_KEYWORDS=/metadata/keyword
+METADATA_LICENSE=/metadata/license
+METADATA_PUBLISHER=/metadata/publisher
+METADATA_RELATED_URL=/metadata/related_url
+METADATA_SOURCE=/metadata/source
+METADATA_BASED_NEAR=/metadata/based_near
+METADATA_EMBARGO_RELEASE_DATE=/metadata/embargo_release_date
+METADATA_VISIBILITY_DURING_EMBARGO=/metadata/visibility_during_embargo
+METADATA_VISIBILITY_AFTER_EMBARGO=/metadata/visibility_after_embargo",,
+Update work metadata,PUT,$BASE_URL/sword/v2/works/$WORK_ID,"Api-key: $API_KEY
+Content-type: application/xml
+Packaging: application/atom+xml;type=entry",,files/generic.full.xml,200,,"$WORK_ID=/atom:entry/atom:id
+$METADATA_TITLE=/atom:entry/atom:title
+$METADATA_CREATOR=/atom:entry/atom:author/atom:name
+*=/atom:entry/atom:updated
+*=/atom:entry/atom:summary
+$METADATA_TITLE=/atom:entry/hykumeta:title
+$METADATA_CREATOR=/atom:entry/hykumeta:creator
+$METADATA_KEYWORD_COUNT=count(/atom:entry/hykumeta:keyword)
+$METADATA_RESOURCE=/atom:entry/hykumeta:resource_type
+$METADATA_RIGHTS=/atom:entry/hykumeta:rights_statement
+$METADATA_VISIBILITY=/atom:entry/hykumeta:visibility
+$METADATA_CONTRIBUTOR=/atom:entry/hykumeta:contributor
+$METADATA_DATE_CREATED=/atom:entry/hykumeta:date_created
+$METADATA_DESCRIPTION=/atom:entry/hykumeta:description
+$METADATA_IDENTIFIER=/atom:entry/hykumeta:identifier
+$METADATA_KEYWORDS=/atom:entry/hykumeta:keyword
+$METADATA_LICENSE=/atom:entry/hykumeta:license
+$METADATA_PUBLISHER=/atom:entry/hykumeta:publisher
+$METADATA_RELATED_URL=/atom:entry/hykumeta:related_url
+$METADATA_SOURCE=/atom:entry/hykumeta:source
+$METADATA_EMBARGO_RELEASE_DATE=substring-before(/atom:entry/hykumeta:embargo_release_date, ""T"")
+$METADATA_VISIBILITY_DURING_EMBARGO=/atom:entry/hykumeta:visibility_during_embargo
+$METADATA_VISIBILITY_AFTER_EMBARGO=/atom:entry/hykumeta:visibility_after_embargo","atom=http://www.w3.org/2005/Atom
+hykumeta=https://hykucommons.org/schema/metadata
+dc=http://purl.org/dc/elements/1.1/"
+Fetch updated work,GET,$BASE_URL/sword/v2/works/$WORK_ID,"Api-key: $API_KEY
+Content-type: application/xml",,,200,,"$WORK_ID=/atom:entry/atom:id
+$METADATA_TITLE=/atom:entry/atom:title
+$METADATA_CREATOR=/atom:entry/atom:author/atom:name
+*=/atom:entry/atom:updated
+*=/atom:entry/atom:summary
+$METADATA_TITLE=/atom:entry/hykumeta:title
+$METADATA_CREATOR=/atom:entry/hykumeta:creator
+$METADATA_KEYWORD_COUNT=count(/atom:entry/hykumeta:keyword)
+$METADATA_RESOURCE=/atom:entry/hykumeta:resource_type
+$METADATA_RIGHTS=/atom:entry/hykumeta:rights_statement
+$METADATA_VISIBILITY=/atom:entry/hykumeta:visibility
+$METADATA_CONTRIBUTOR=/atom:entry/hykumeta:contributor
+$METADATA_DATE_CREATED=/atom:entry/hykumeta:date_created
+$METADATA_DESCRIPTION=/atom:entry/hykumeta:description
+$METADATA_IDENTIFIER=/atom:entry/hykumeta:identifier
+$METADATA_KEYWORDS=/atom:entry/hykumeta:keyword
+$METADATA_LICENSE=/atom:entry/hykumeta:license
+$METADATA_PUBLISHER=/atom:entry/hykumeta:publisher
+$METADATA_RELATED_URL=/atom:entry/hykumeta:related_url
+$METADATA_SOURCE=/atom:entry/hykumeta:source
+$METADATA_EMBARGO_RELEASE_DATE=substring-before(/atom:entry/hykumeta:embargo_release_date, ""T"")
+$METADATA_VISIBILITY_DURING_EMBARGO=/atom:entry/hykumeta:visibility_during_embargo
+$METADATA_VISIBILITY_AFTER_EMBARGO=/atom:entry/hykumeta:visibility_after_embargo","atom=http://www.w3.org/2005/Atom
+hykumeta=https://hykucommons.org/schema/metadata
+dc=http://purl.org/dc/elements/1.1/"
 Submit binary Hyku metadata only (legacy),POST,$BASE_URL/sword/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
 Content-type: application/xml
 Packaging: application/atom+xml;type=entry",,files/generic.minimal.xml,201,"WORK_ID=substring-after(substring-before(/atom:feed/atom:link[@rel=""edit""]/@href,""/file_sets""),""/works/"")","*=/atom:feed/atom:content[@rel=""src""]/@href","atom=http://www.w3.org/2005/Atom
@@ -193,7 +265,7 @@ $METADATA_LANGUAGE=/atom:entry/hykumeta:language
 $METADATA_ADVISOR=/atom:entry/hykumeta:advisor
 $METADATA_EMBARGO_RELEASE_DATE=substring-before(/atom:entry/hykumeta:embargo_release_date, ""T"")
 $METADATA_VISIBILITY_DURING_EMBARGO=/atom:entry/hykumeta:visibility_during_embargo
-$METADATA_VISIBILITY_AFTER_EMBARGO=/atom:entry/hykumeta:visiblity_after_embargo","atom=http://www.w3.org/2005/Atom
+$METADATA_VISIBILITY_AFTER_EMBARGO=/atom:entry/hykumeta:visibility_after_embargo","atom=http://www.w3.org/2005/Atom
 hykumeta=https://hykucommons.org/schema/metadata
 dc=http://purl.org/dc/elements/1.1/"
 Get work with embargo,GET,$BASE_URL/sword/v2/works/$WORK_ID,"Api-key: $API_KEY
@@ -229,10 +301,12 @@ dc=http://purl.org/dc/elements/1.1/"
 Remove embargo from work,PUT,$BASE_URL/sword/v2/works/$WORK_ID,"Api-key: $API_KEY
 Content-type: application/xml
 Packaging: application/atom+xml;type=entry
-Content-Disposition: attachment; filename=metadata.xml",,files/etd.noembargo.xml,200,,"0=count(atom:entry/hykumeta:visiblity_during_embargo)
-0=count(atom:entry/hykumeta:visiblity_after_embargo)
-0=count(atom:entry/hykumeta:embargo_release_date)
-open=atom:entry/hykumeta:visiblity",
+Content-Disposition: attachment; filename=metadata.xml",,files/etd.noembargo.xml,200,,"0=count(/atom:entry/hykumeta:visiblity_during_embargo)
+0=count(/atom:entry/hykumeta:visiblity_after_embargo)
+0=count(/atom:entry/hykumeta:embargo_release_date)
+open=/atom:entry/hykumeta:visiblity","atom=http://www.w3.org/2005/Atom
+hykumeta=https://hykucommons.org/schema/metadata
+dc=http://purl.org/dc/elements/1.1/"
 Submit work with embargo legacy,POST,$BASE_URL/sword/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
 Content-type: application/zip
 Content-Disposition: attachment; filename=EtdEmbargo.zip
@@ -268,15 +342,11 @@ $METADATA_RELATED_URL=/atom:feed/hykumeta:related_url
 $METADATA_SOURCE=/atom:feed/hykumeta:source
 $METADATA_LANGUAGE=/atom:feed/hykumeta:language
 $METADATA_ADVISOR=/atom:feed/hykumeta:advisor
-$METADATA_EMBARGO_RELEASE_DATE=/atom:feed/hykumeta:embargo_release_date
+$METADATA_EMBARGO_RELEASE_DATE=substring-before(/atom:feed/hykumeta:embargo_release_date, ""T"")
 $METADATA_VISIBILITY_DURING_EMBARGO=/atom:feed/hykumeta:visibility_during_embargo
 $METADATA_VISIBILITY_AFTER_EMBARGO=/atom:feed/hykumeta:visiblity_after_embargo","atom=http://www.w3.org/2005/Atom
 hykumeta=https://hykucommons.org/schema/metadata
 dc=http://purl.org/dc/elements/1.1/"
-Submit form and SimpleZip,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
-Content-type: application/zip
-Content-Disposition: attachment; filename=SimpleZip.zip
-Packaging: http://purl.org/net/sword/package/SimpleZip",metadata=files/generic.minimal.xml,files/SimpleZip.zip,201,,*=/atom:entry/atom:id,atom=http://www.w3.org/2005/Atom
 Submit form and SimpleZip with conflicting metadata,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
 Content-type: application/zip
 Content-Disposition: attachment; filename=SimpleZip.zip

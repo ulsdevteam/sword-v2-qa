@@ -30,6 +30,7 @@ Create a SWORD v2 SimpleZip file with a metadata.xml and .pdf file in the root, 
 
 ```
 mkdir temp/simplezip; mkdir temp/simplezip/supplement; cp files/generic.minimal.xml temp/simplezip/metadata.xml; cp files/*.pdf temp/simplezip; cp files/*.csv files/*.xlsx files/*.png files/*.docx temp/simplezip/supplement
+sed 's|<title>\(.*\)</title>|<title>SimpleZip (\1)</title>|' -i temp/simplezip/metadata.xml
 pushd temp/simplezip/; zip -r SimpleZip.zip .; popd
 mv temp/simplezip/SimpleZip.zip files/
 ```
@@ -40,6 +41,7 @@ Package the above SimpleZip file as BagIt, then make a copy where the checksums 
 
 ```
 pip install bagit
+sed 's|<title>SimpleZip|<title>BagIt|' -i temp/simplezip/metadata.xml
 bagit.py --contact-name 'Hyku Demo User' temp/simplezip/
 pushd temp/simplezip; zip -r BagIt.zip .; popd
 mv temp/simplezip/BagIt.zip files/

@@ -38,13 +38,20 @@ def xpath_lookup(xmlstring, xpath, nsmap):
     xmlfile = etree.parse(stringio)
     results = xmlfile.xpath(xpath, namespaces=nsmap)
     return_string = None
-    if results:
+    if results is not None:
       return_string = ''
-      for result in results:
-        if hasattr(result, 'itertext'):
-          return_string = return_string + ''.join(result.itertext())
-        else:
-          return_string = return_string + result
+      try:
+        iterable = iter(results)
+      except TypeError:
+        iterable = False
+      if iterable:
+        for result in results:
+          if hasattr(result, 'itertext'):
+            return_string = return_string + ''.join(result.itertext())
+          else:
+            return_string = return_string + result
+      else:
+        return_string = str(results)
     return return_string
 
 def write_to_tempfile(num, output):

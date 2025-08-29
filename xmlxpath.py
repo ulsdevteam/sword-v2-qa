@@ -22,12 +22,19 @@ def main():
     in_string = StringIO(sys.stdin.read())
     xmlfile = etree.parse(in_string)
     results = xmlfile.xpath(args.xpath, namespaces=nsmap)
-    if results:
-      for result in results:
-        if hasattr(result, 'itertext'):
-          print(''.join(result.itertext()))
-        else:
-          print(result)
+    if results is not None:
+      try:
+        iterable = iter(results)
+      except TypeError:
+        iterable = False
+      if iterable:
+        for result in results:
+          if hasattr(result, 'itertext'):
+            print(''.join(result.itertext()))
+          else:
+            print(result)
+      else:
+        print(results)
     else:
       exit(1)
 
