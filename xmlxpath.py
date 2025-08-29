@@ -1,7 +1,7 @@
 import argparse
 import sys
 import io
-from io import StringIO
+from io import BytesIO
 import lxml
 from lxml import etree
 
@@ -19,7 +19,7 @@ def main():
         for ns in args.ns:
             alias, uri = ns.split('=', 1)
             nsmap[alias] = uri
-    in_string = StringIO(sys.stdin.read())
+    in_string = BytesIO(sys.stdin.buffer.read())
     xmlfile = etree.parse(in_string)
     results = xmlfile.xpath(args.xpath, namespaces=nsmap)
     if results is not None:

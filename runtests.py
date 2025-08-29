@@ -6,7 +6,7 @@ import string
 import lxml
 from lxml import etree
 import io
-from io import StringIO
+from io import BytesIO
 import tempfile
 import os
 
@@ -27,15 +27,15 @@ def variable_replace(inputstring):
 def xpath_lookup(xmlstring, xpath, nsmap):
     """
     Lookup values in an XML document by XPath
-    xmlstring: str A string of an XML document
+    xmlstring: bytes A string of an XML document
     xpath: str The xpath expression to execute on the XML
     nsmap: dict The XML namespaces used by the xpath, in { alias: nsURI } form
     return: str A concatenation of all results as text output, or None
     """
     if not xmlstring:
         return None
-    stringio = StringIO(xmlstring)
-    xmlfile = etree.parse(stringio)
+    bytesio = BytesIO(xmlstring)
+    xmlfile = etree.parse(bytesio)
     results = xmlfile.xpath(xpath, namespaces=nsmap)
     return_string = None
     if results is not None:
@@ -64,7 +64,7 @@ def write_to_tempfile(num, output):
     fh = tempfile.NamedTemporaryFile(prefix = str(num)+'_', dir = 'temp/', delete = False)
     fh.write(output)
     fname = os.path.realpath(fh.name)
-    print(f"logged to {fname}", file=sys.stderr)
+    print(f"  logged to {fname}", file=sys.stderr)
     fh.close()
 
 def test_http_request(row_number, row):
@@ -103,14 +103,14 @@ def test_http_request(row_number, row):
     xmlfile = None
     namespaces = string_to_dictionary(row['NS'])
     if response.status_code != int(row['Expected']):
-        print(f"Bad response for #{row_number}, {row['Title']}", file=sys.stderr)
-        print(f"#{row_number} Failed. Tried {row['Method']} {uri}", file=sys.stderr)
-        print(f"#{row_number} Failed. Expected {row['Expected']}", file=sys.stderr)
-        print(f"#{row_number} Failed. Found {response.status_code}", file=sys.stderr)
+        print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
         write_to_tempfile(row_number, response.content)
+        print(f"  #{row_number} Bed Code. Tried {row['Method']} {uri}", file=sys.stderr)
+        print(f"  #{row_number} Bad Code. Expected {row['Expected']}", file=sys.stderr)
+        print(f"  #{row_number} Bad Code. Found {response.status_code}", file=sys.stderr)
     else:
         failed_test = False
-        xmlfile = response.text
+        xmlfile = response.content
         for line in row['Test'].splitlines():
             expected, xpath = line.split('=', 1)
             expected = variable_replace(expected)
@@ -118,11 +118,11 @@ def test_http_request(row_number, row):
             value = xpath_lookup(xmlfile, xpath, namespaces)
             if not (expected == '*' and value is not None) and not expected == value:
                 if not failed_test:
-                    print(f"Bad data for #{row_number}, {row['Title']}", file=sys.stderr)
+                    print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
                     write_to_tempfile(row_number, response.content)
-                print(f"#{row_number} Failed. Tried {xpath}", file=sys.stderr)
-                print(f"#{row_number} Failed. Expected {expected}", file=sys.stderr)
-                print(f"#{row_number} Failed. Found {value}", file=sys.stderr)
+                print(f"  #{row_number} Bad Data. Tried {xpath}", file=sys.stderr)
+                print(f"  #{row_number} Bad Data. Expected {expected}", file=sys.stderr)
+                print(f"  #{row_number} Bad Data. Found {value}", file=sys.stderr)
                 failed_test = True
         if not failed_test:
             print(f"#{row_number} Success. {row['Title']}")
@@ -133,10 +133,10 @@ def test_http_request(row_number, row):
             key, value = line.split('=', 1)
             if not variables[key]:
                if not failed_store:
-                    print(f"Bad lookup for #{row_number}, {row['Title']}", file=sys.stderr)
+                    print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
                     write_to_tempfile(row_number, response.content)
                failed_store = True
-               print(f"#{row_number} Failed. Tried {value}", file=sys.stderr)
+               print(f"  #{row_number} Missing Value. Tried {value}", file=sys.stderr)
 
 def string_to_dictionary(string):
     """
@@ -155,7 +155,7 @@ def store_variables(assignments, source, ns):
     """
     Given variable names and xpaths, with an XML document and namespaces, find the value of the xpath in the XML and assign it to the variable name.  Modifies the global variables.
     assignments: str A multiline mapping of varible name to xpath, as "FOO_BAR=/fizz:foo/buzz:bar[@att='val']"
-    source: str The XML against which to evaluate the xpaths
+    source: bytes The XML against which to evaluate the xpaths
     ns: dict Key-value pairs of namespace aliases to URIs as used in the xpath
     return: None
     """
@@ -178,15 +178,16 @@ def main():
         row_number = row_id + 1
         if row['Method'] == 'FILE':
             namespaces = string_to_dictionary(row['NS'])
-            with open(row['URI'], 'r') as fh:
+            print(f"#{row_number} Processing. {row['Title']}", file=sys.stderr)
+            with open(row['URI'], 'rb') as fh:
                 source_text = fh.read()
                 store_variables(row['Store'], source_text, namespaces)
         elif row['Method'] in ['GET', 'POST', 'PUT']:
             try:
                 test_http_request(row_number, row)
             except KeyError as e:
-                print(f"Bad requirements for #{row_number}, {row['Title']}", file=sys.stderr)
-                print(f"#{row_number} Failed. Missing {e}", file=sys.stderr)
+                print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
+                print(f"  #{row_number} Variable Requirement. Missing {e}", file=sys.stderr)
         else:
             print(f"Method not defined for {row_number}", file=sys.stderr)
 
