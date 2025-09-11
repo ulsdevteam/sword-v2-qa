@@ -168,13 +168,24 @@ def store_variables(assignments, source, ns):
         else:
             variables.pop(variable, None)
 
-def apply_xslt(xml_file, xslt_file, output_file):
+def apply_xslt(row_number, row):
+    xml_file, xslt_file = row["Payload"], row["URI"]
     xml = etree.parse(xml_file)
     xsl = etree.parse(xslt_file)
     transform = etree.XSLT(xsl)
     output = transform(xml)
-    with open(output_file, 'w') as f:
-        output.write(f)
+    
+    output_files = []
+    for line in row["Store"].splitlines():
+        lhs, rhs = line.split('=', 1)
+        if rhs == '*':
+            output_files.append(lhs)
+    
+    for output_file in output_files:
+        with open(output_file, 'w') as f:
+            output.write(output_file)
+
+    
 
 def main():
     """
@@ -197,7 +208,7 @@ def main():
                 print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
                 print(f"  #{row_number} Variable Requirement. Missing {e}", file=sys.stderr)
         elif row['Method'] == 'XSLT':
-            apply_xslt(row['Payload'], row['URI'], row['Store'])
+            apply_xslt(row_number, row)
         else:
             print(f"Method not defined for {row_number}", file=sys.stderr)
 
