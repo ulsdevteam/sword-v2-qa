@@ -168,6 +168,14 @@ def store_variables(assignments, source, ns):
         else:
             variables.pop(variable, None)
 
+def apply_xslt(xml_file, xslt_file, output_file):
+    xml = etree.parse(xml_file)
+    xsl = etree.parse(xslt_file)
+    transform = etree.XSLT(xsl)
+    output = transform(xml)
+    with open(output_file, 'w') as f:
+        output.write(f)
+
 def main():
     """
     Read STDIN as a CSV, process each row as an HTTP test.  See README for columns.
@@ -188,6 +196,8 @@ def main():
             except KeyError as e:
                 print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
                 print(f"  #{row_number} Variable Requirement. Missing {e}", file=sys.stderr)
+        elif row['Method'] == 'XSLT':
+            apply_xslt(row['Payload'], row['URI'], row['Store'])
         else:
             print(f"Method not defined for {row_number}", file=sys.stderr)
 
