@@ -169,21 +169,31 @@ def store_variables(assignments, source, ns):
             variables.pop(variable, None)
 
 def apply_xslt(row_number, row):
-    xml_file, xslt_file = row["Payload"], row["URI"]
+
+    xml_file, xslt_file = row['Payload'], row['URI']
+
     xml = etree.parse(xml_file)
     xsl = etree.parse(xslt_file)
     transform = etree.XSLT(xsl)
     output = transform(xml)
     
+    # Store 
     output_files = []
-    for line in row["Store"].splitlines():
+    assignments = []
+    for line in row['Store'].splitlines():
         lhs, rhs = line.split('=', 1)
         if rhs == '*':
             output_files.append(lhs)
-    
+        else:
+            assignments.append(line)
     for output_file in output_files:
         with open(output_file, 'w') as f:
             output.write(output_file)
+    
+    with open(xml_file) as source_file:
+        source = source_file.read()       
+    namespaces = string_to_dictionary(row['NS'])
+    store_variables('\n'.join(assignments), source, namespaces)
 
     
 
