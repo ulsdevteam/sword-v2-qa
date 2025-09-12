@@ -168,6 +168,8 @@ def store_variables(assignments, source, ns):
         else:
             variables.pop(variable, None)
 
+    
+
 def apply_xslt(row_number, row):
     xml_file, xslt_file = row['Payload'], row['URI']
     
@@ -181,13 +183,19 @@ def apply_xslt(row_number, row):
         else:
             assignments.append(line)
     
+    assignments = '\n'.join(assignments)
+
     with open(xml_file, 'rb') as source_file:
-        source = source_file.read()       
+        xml_source = source_file.read()
+    with open(xslt_file, 'rb') as source_file:
+        xslt_source = source_file.read()
+       
     namespaces = string_to_dictionary(row['NS'])
-    store_variables('\n'.join(assignments), source, namespaces)
+    store_variables(assignments, xml_source, namespaces)
+    store_variables(assignments, xslt_source, namespaces)
     
-    xml = etree.fromstring(source)
-    xsl = etree.parse(xslt_file)
+    xml = etree.fromstring(xml_source)
+    xsl = etree.fromstring(xslt_source)
     transform = etree.XSLT(xsl)
     output = transform(xml)
 
@@ -218,7 +226,11 @@ def main():
                 print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
                 print(f"  #{row_number} Variable Requirement. Missing {e}", file=sys.stderr)
         elif row['Method'] == 'XSLT':
-            apply_xslt(row_number, row)
+            try:
+                apply_xslt(row_number, row)
+            except KeyError as e:
+                print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
+                print(f"  #{row_number} Variable Requirement. Missing {e}", file=sys.stderr)
         else:
             print(f"Method not defined for {row_number}", file=sys.stderr)
 
