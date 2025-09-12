@@ -67,6 +67,7 @@ Tests are defined in CSV format, using the following colunms:
 * Title: a human readable name for the test
 * Method: A (generally HTTP) method to use for the test e.g. GET, POST, PUT
   * FILE is a magic method which reads a local XML file; pair FILE with the Store column to set variables
+  * XSLT is a magic method which applies an XSLT transform to a local XML file
 * URI: The HTTP endpoint, or local filename which will be accessed
   * Variables as `$VAR` will be interpolated
 * Headers: Multiline HTTP headers to supply, e.g. `Content-Type: application/xml`

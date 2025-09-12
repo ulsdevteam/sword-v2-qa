@@ -171,9 +171,16 @@ def store_variables(assignments, source, ns):
     
 
 def apply_xslt(row_number, row):
+    """
+    Process a CSV row as an XSLT method.
+    Payload is transformed by URI. Transformed files are stored in paths (described 
+        as /path/to/file=*) within Store. Rest of Store assignments are recorded.
+    row_number: CSV row number
+    row: Dictionary object that contains csv row data
+    """
     xml_file, xslt_file = row['Payload'], row['URI']
     
-    # Store 
+    # separate outputs and assignments
     output_files = []
     assignments = []
     for line in row['Store'].splitlines():
