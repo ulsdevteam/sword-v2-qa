@@ -186,7 +186,7 @@ def apply_xslt(row_number, row):
     namespaces = string_to_dictionary(row['NS'])
     store_variables('\n'.join(assignments), source, namespaces)
     
-    xml = etree.parse(source)
+    xml = etree.fromstring(source)
     xsl = etree.parse(xslt_file)
     transform = etree.XSLT(xsl)
     output = transform(xml)
