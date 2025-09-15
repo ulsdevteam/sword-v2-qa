@@ -200,7 +200,7 @@ def apply_xslt(row_number, row):
     xsl = etree.fromstring(xslt_source)
     transform = etree.XSLT(xsl)
     output = transform(xml)
-    store_variables(row['Store'], output.tostring(), namespaces)
+    store_variables(row['Store'], etree.tostring(output), namespaces)
 
 
     
