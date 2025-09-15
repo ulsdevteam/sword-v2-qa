@@ -194,7 +194,7 @@ def apply_xslt(row_number, row):
         xslt_source = source_file.read()
        
     namespaces = string_to_dictionary(row['NS'])
-    output_files = store_variables(assignments, xml_source, namespaces)
+    output_files = store_variables(row['Store'], xml_source, namespaces)
     #store_variables(assignments, xslt_source, namespaces)
     
     xml = etree.fromstring(xml_source)
