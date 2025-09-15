@@ -129,9 +129,6 @@ def test_http_request(row_number, row):
     if row['Store']:
         output_files = store_variables(row['Store'], xmlfile, namespaces)
         # xml file is response.content so is written to files
-        for out_file in output_files:
-            with open(out_file, 'w') as fw:
-                fw.write(xmlfile)
         failed_store = False
         for line in row['Store'].splitlines():
             key, value = line.split('=', 1)
@@ -175,8 +172,10 @@ def store_variables(assignments, source, ns):
             variables[variable] = value
         else:
             variables.pop(variable, None)
-    return output_paths
     
+    for path in output_paths:
+        with open(path, 'w') as fw:
+            fw.write(source)
 
 def apply_xslt(row_number, row):
     """
@@ -194,17 +193,15 @@ def apply_xslt(row_number, row):
         xslt_source = source_file.read()
        
     namespaces = string_to_dictionary(row['NS'])
-    output_files = store_variables(row['Store'], xml_source, namespaces)
+    #output_files = store_variables(row['Store'], xml_source, namespaces)
     #store_variables(assignments, xslt_source, namespaces)
     
     xml = etree.fromstring(xml_source)
     xsl = etree.fromstring(xslt_source)
     transform = etree.XSLT(xsl)
     output = transform(xml)
+    store_variables(row['Store'], output.tostring(), namespaces)
 
-    for output_file in output_files:
-        with open(output_file, 'w') as f:
-            output.write(output_file)
 
     
 
