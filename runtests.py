@@ -127,7 +127,11 @@ def test_http_request(row_number, row):
         if not failed_test:
             print(f"#{row_number} Success. {row['Title']}")
     if row['Store']:
-        store_variables(row['Store'], xmlfile, namespaces)
+        output_files = store_variables(row['Store'], xmlfile, namespaces)
+        # xml file is response.content so is written to files
+        for out_file in output_files:
+            with open(out_file, 'w') as fw:
+                fw.write(xmlfile)
         failed_store = False
         for line in row['Store'].splitlines():
             key, value = line.split('=', 1)
@@ -153,21 +157,25 @@ def string_to_dictionary(string):
 
 def store_variables(assignments, source, ns):
     """
-    Given variable names and xpaths, with an XML document and namespaces, find the value of the xpath in the XML and assign it to the variable name.  Modifies the global variables.
-    assignments: str A multiline mapping of varible name to xpath, as "FOO_BAR=/fizz:foo/buzz:bar[@att='val']"
+    Given variable names and xpaths, with an XML document and namespaces, find the value of the xpath in the XML and assign it to the variable name. Paths specified are extracted and returned. Modifies the global variables. 
+    assignments: str A multiline sequence of either file paths as "/path/to/file=*" or mappings of varible names to xpaths, as "FOO_BAR=/fizz:foo/buzz:bar[@att='val']"
     source: bytes The XML against which to evaluate the xpaths
     ns: dict Key-value pairs of namespace aliases to URIs as used in the xpath
-    return: None
+    return: List of paths to output result to with syntax /path/to/file=*
     """
+    output_paths = []
     for line in assignments.splitlines():
         variable, xpath = line.split('=', 1)
+        if xpath == '*':
+            output_paths.append(variable)
+            continue
         xpath = variable_replace(xpath)
         value = xpath_lookup(source, xpath, ns)
         if value:
             variables[variable] = value
         else:
             variables.pop(variable, None)
-
+    return output_paths
     
 
 def apply_xslt(row_number, row):
@@ -180,26 +188,14 @@ def apply_xslt(row_number, row):
     """
     xml_file, xslt_file = row['Payload'], row['URI']
     
-    # separate outputs and assignments
-    output_files = []
-    assignments = []
-    for line in row['Store'].splitlines():
-        lhs, rhs = line.split('=', 1)
-        if rhs == '*':
-            output_files.append(lhs)
-        else:
-            assignments.append(line)
-    
-    assignments = '\n'.join(assignments)
-
     with open(xml_file, 'rb') as source_file:
         xml_source = source_file.read()
     with open(xslt_file, 'rb') as source_file:
         xslt_source = source_file.read()
        
     namespaces = string_to_dictionary(row['NS'])
-    store_variables(assignments, xml_source, namespaces)
-    store_variables(assignments, xslt_source, namespaces)
+    output_files = store_variables(assignments, xml_source, namespaces)
+    #store_variables(assignments, xslt_source, namespaces)
     
     xml = etree.fromstring(xml_source)
     xsl = etree.fromstring(xslt_source)
