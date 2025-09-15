@@ -109,23 +109,8 @@ def test_http_request(row_number, row):
         print(f"  #{row_number} Bad Code. Expected {row['Expected']}", file=sys.stderr)
         print(f"  #{row_number} Bad Code. Found {response.status_code}", file=sys.stderr)
     else:
-        failed_test = False
         xmlfile = response.content
-        for line in row['Test'].splitlines():
-            expected, xpath = line.split('=', 1)
-            expected = variable_replace(expected)
-            xpath = variable_replace(xpath)
-            value = xpath_lookup(xmlfile, xpath, namespaces)
-            if not (expected == '*' and value is not None) and not expected == value:
-                if not failed_test:
-                    print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
-                    write_to_tempfile(row_number, response.content)
-                print(f"  #{row_number} Bad Data. Tried {xpath}", file=sys.stderr)
-                print(f"  #{row_number} Bad Data. Expected {expected}", file=sys.stderr)
-                print(f"  #{row_number} Bad Data. Found {value}", file=sys.stderr)
-                failed_test = True
-        if not failed_test:
-            print(f"#{row_number} Success. {row['Title']}")
+        handle_tests(row_number, row, xmlfile)
     if row['Store']:
         output_files = store_variables(row['Store'], xmlfile, namespaces)
         # xml file is response.content so is written to files
@@ -177,6 +162,23 @@ def store_variables(assignments, source, ns):
         with open(path, 'w') as fw:
             fw.write(source)
 
+def handle_tests(row_number, row, xmlfile):
+    for line in row['Test'].splitlines():
+        expected, xpath = line.split('=', 1)
+        expected = variable_replace(expected)
+        xpath = variable_replace(xpath)
+        value = xpath_lookup(xmlfile, xpath, namespaces)
+        if not (expected == '*' and value is not None) and not expected == value:
+            if not failed_test:
+                print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
+                write_to_tempfile(row_number, response.content)
+            print(f"  #{row_number} Bad Data. Tried {xpath}", file=sys.stderr)
+            print(f"  #{row_number} Bad Data. Expected {expected}", file=sys.stderr)
+            print(f"  #{row_number} Bad Data. Found {value}", file=sys.stderr)
+            failed_test = True
+    if not failed_test:
+        print(f"#{row_number} Success. {row['Title']}")
+
 def apply_xslt(row_number, row):
     """
     Process a CSV row as an XSLT method.
@@ -187,20 +189,18 @@ def apply_xslt(row_number, row):
     """
     xml_file, xslt_file = row['Payload'], row['URI']
     
-    with open(xml_file, 'rb') as source_file:
-        xml_source = source_file.read()
-    with open(xslt_file, 'rb') as source_file:
-        xslt_source = source_file.read()
        
     namespaces = string_to_dictionary(row['NS'])
     #output_files = store_variables(row['Store'], xml_source, namespaces)
     #store_variables(assignments, xslt_source, namespaces)
     
-    xml = etree.fromstring(xml_source)
-    xsl = etree.fromstring(xslt_source)
+    xml = etree.parse(xml_file)
+    xsl = etree.parse(xslt_file)
     transform = etree.XSLT(xsl)
     output = transform(xml)
-    store_variables(row['Store'], etree.tostring(output).decode('utf-8'), namespaces)
+    xml_output = etree.tostring(output).decode('utf-8')
+    store_variables(row['Store'], xml_output, namespaces)
+    handle_tests(row_number, row, xml_output)
 
 
     
