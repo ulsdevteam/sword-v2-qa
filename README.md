@@ -70,15 +70,19 @@ Tests are defined in CSV format, using the following colunms:
   * XSLT is a magic method which applies an XSLT transform to a local XML file
 * URI: The HTTP endpoint, or local filename which will be accessed
   * Variables as `$VAR` will be interpolated
+  * For XSLT, this is the transformation xslt file that will be applied.
 * Headers: Multiline HTTP headers to supply, e.g. `Content-Type: application/xml`
   * Variables as `$VAR` will be interpolated
 * Form: Multiline form fields to be be submitted in the form of key=filename
   * Variables will be interpolated
 * Payload: A filename which will be submitted as binary content to the request
+  * For XSLT, this is the xml file, to which the xslt will be applied to.
 * Expected: An expected HTTP status code
-* Store: Multiline variable assignment as variable and xpath pairs, in the form of `VAR=/ns:element/ns:subelement/@attr`
+* Store: Multiline sequences that are either variable assignments as variable and xpath pairs, in the form of `VAR=/ns:element/ns:subelement/@attr`, or local filepaths in the form `/path/to/file=*`
   * Variables named here are global and will persist for subsequent calls, until overwritten
   * The xpath is executed against the URI column; that is, the content of a FILE, or the response of a GET, POST, PUT, etc.
+  * The relevant content is stored within each of the filepaths provided; that is content of file, response of GET, POST, PUT, 
+	result of XSLT transformation etc.
 * Test: Multiline assertions in the form of `Expected=/xpath/expression[@attr="value"]`
   * Variables will be interpolated
   * Use a left hand wildcard to indicate any value, e.g. `*=//element/subelement`
