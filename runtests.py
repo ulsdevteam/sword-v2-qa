@@ -203,7 +203,7 @@ def apply_xslt(row_number, row):
     xsl = etree.parse(xslt_file)
     transform = etree.XSLT(xsl)
     output = transform(xml)
-    xml_output = etree.tostring(output, encoding='utf-8')
+    xml_output = etree.tostring(output)
     store_variables(row['Store'], xml_output, namespaces)
     handle_tests(row_number, row, xml_output)
 
