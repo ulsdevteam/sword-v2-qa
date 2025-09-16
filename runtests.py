@@ -112,7 +112,7 @@ def test_http_request(row_number, row):
         xmlfile = response.content
         handle_tests(row_number, row, xmlfile)
     if row['Store']:
-        output_files = store_variables(row['Store'], xmlfile, namespaces)
+        output_files = store_variables_and_write(row['Store'], xmlfile, namespaces)
         # xml file is response.content so is written to files
 
 def string_to_dictionary(string):
@@ -128,9 +128,11 @@ def string_to_dictionary(string):
             dictionary[key] = value
     return dictionary
 
-def store_variables(assignments, source, ns):
+def store_variables_and_write(assignments, source, ns):
     """
-    Given variable names and xpaths, with an XML document and namespaces, find the value of the xpath in the XML and assign it to the variable name. Paths specified are writtent. Modifies the global variables. 
+    Given filepaths, variable names and xpaths, with an XML document and namespaces, find the value of the xpath in the XML and assign it to the variable name, and store the result in filepaths provided. Modifies the global variables. 
+    Writes to provided files :w
+
     assignments: str A multiline sequence of either file paths as "/path/to/file=*" or mappings of varible names to xpaths, as "FOO_BAR=/fizz:foo/buzz:bar[@att='val']"
     source: bytes The XML against which to evaluate the xpaths
     ns: dict Key-value pairs of namespace aliases to URIs as used in the xpath
@@ -196,15 +198,15 @@ def apply_xslt(row_number, row):
     
        
     namespaces = string_to_dictionary(row['NS'])
-    #output_files = store_variables(row['Store'], xml_source, namespaces)
-    #store_variables(assignments, xslt_source, namespaces)
+    #output_files = store_variables_and_write(row['Store'], xml_source, namespaces)
+    #store_variables_and_write(assignments, xslt_source, namespaces)
     
     xml = etree.parse(xml_file)
     xsl = etree.parse(xslt_file)
     transform = etree.XSLT(xsl)
     output = transform(xml)
     xml_output = etree.tostring(output)
-    store_variables(row['Store'], xml_output, namespaces)
+    store_variables_and_write(row['Store'], xml_output, namespaces)
     handle_tests(row_number, row, xml_output)
 
 
@@ -223,7 +225,7 @@ def main():
             print(f"#{row_number} Processing. {row['Title']}", file=sys.stderr)
             with open(row['URI'], 'rb') as fh:
                 source_text = fh.read()
-                store_variables(row['Store'], source_text, namespaces)
+                store_variables_and_write(row['Store'], source_text, namespaces)
         elif row['Method'] in ['GET', 'POST', 'PUT']:
             try:
                 test_http_request(row_number, row)
