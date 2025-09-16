@@ -3,7 +3,7 @@
 source .env
 
 echo Post a SimpleZip work with embargo
-curl -s --request POST --url https://$SWORD_TENAT/sword/v2/collections/$ADMIN_SET/works \
+curl -s --request POST --url https://$SWORD_TENANT/sword/v2/collections/$ADMIN_SET/works \
     --header 'Api-key: '$API_KEY \
     -F payload=@../files/EtdEmbargo.zip \
     -D ../temp/post.headers.out \

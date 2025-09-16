@@ -7,7 +7,7 @@
   * xsltproc
   * xmllint
   * writable space in `../temp/`
-* Create a .env file setting bash environment variables of `API_KEY` and `ADMIN_SET`
+* Create a .env file setting bash environment variables of `API_KEY` and `ADMIN_SET` and `SWORD_TENANT`
 * Run `embargo.sh`
 
 ## What it does
