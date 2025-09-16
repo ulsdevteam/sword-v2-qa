@@ -114,15 +114,6 @@ def test_http_request(row_number, row):
     if row['Store']:
         output_files = store_variables(row['Store'], xmlfile, namespaces)
         # xml file is response.content so is written to files
-        failed_store = False
-        for line in row['Store'].splitlines():
-            key, value = line.split('=', 1)
-            if not variables[key]:
-               if not failed_store:
-                    print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
-                    write_to_tempfile(row_number, response.content)
-               failed_store = True
-               print(f"  #{row_number} Missing Value. Tried {value}", file=sys.stderr)
 
 def string_to_dictionary(string):
     """
@@ -159,10 +150,24 @@ def store_variables(assignments, source, ns):
             variables.pop(variable, None)
     
     for path in output_paths:
-        with open(path, 'w') as fw:
+        with open(path, 'wb') as fw:
             fw.write(source)
 
+    failed_store = False
+    for line in assignments.splitlines():
+        key, value = line.split('=', 1)
+        if value == '*':
+            continue
+        if not variables[key]:
+           if not failed_store:
+                print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
+                write_to_tempfile(row_number, response.content)
+           failed_store = True
+           print(f"  #{row_number} Missing Value. Tried {value}", file=sys.stderr)
+
 def handle_tests(row_number, row, xmlfile):
+    namespaces = string_to_dictionary(row['NS'])
+    failed_test = False
     for line in row['Test'].splitlines():
         expected, xpath = line.split('=', 1)
         expected = variable_replace(expected)
@@ -171,7 +176,7 @@ def handle_tests(row_number, row, xmlfile):
         if not (expected == '*' and value is not None) and not expected == value:
             if not failed_test:
                 print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
-                write_to_tempfile(row_number, response.content)
+                write_to_tempfile(row_number, xmlfile)
             print(f"  #{row_number} Bad Data. Tried {xpath}", file=sys.stderr)
             print(f"  #{row_number} Bad Data. Expected {expected}", file=sys.stderr)
             print(f"  #{row_number} Bad Data. Found {value}", file=sys.stderr)
