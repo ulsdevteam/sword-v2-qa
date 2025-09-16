@@ -139,11 +139,11 @@ def string_to_dictionary(string):
 
 def store_variables(assignments, source, ns):
     """
-    Given variable names and xpaths, with an XML document and namespaces, find the value of the xpath in the XML and assign it to the variable name. Paths specified are extracted and returned. Modifies the global variables. 
+    Given variable names and xpaths, with an XML document and namespaces, find the value of the xpath in the XML and assign it to the variable name. Paths specified are writtent. Modifies the global variables. 
     assignments: str A multiline sequence of either file paths as "/path/to/file=*" or mappings of varible names to xpaths, as "FOO_BAR=/fizz:foo/buzz:bar[@att='val']"
     source: bytes The XML against which to evaluate the xpaths
     ns: dict Key-value pairs of namespace aliases to URIs as used in the xpath
-    return: List of paths to output result to with syntax /path/to/file=*
+    return: None
     """
     output_paths = []
     for line in assignments.splitlines():
@@ -198,7 +198,7 @@ def apply_xslt(row_number, row):
     xsl = etree.parse(xslt_file)
     transform = etree.XSLT(xsl)
     output = transform(xml)
-    xml_output = etree.tostring(output).decode('utf-8')
+    xml_output = etree.tostring(output, encoding='utf-8')
     store_variables(row['Store'], xml_output, namespaces)
     handle_tests(row_number, row, xml_output)
 
