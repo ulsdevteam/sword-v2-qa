@@ -139,6 +139,7 @@ def store_variables_and_write(assignments, source, ns):
     return: None
     """
     output_paths = []
+    # extract and assign variables, and extract file paths
     for line in assignments.splitlines():
         variable, xpath = line.split('=', 1)
         if xpath == '*':
@@ -151,10 +152,12 @@ def store_variables_and_write(assignments, source, ns):
         else:
             variables.pop(variable, None)
     
+    # emit file paths
     for path in output_paths:
         with open(path, 'wb') as fw:
             fw.write(source)
-
+    
+    # confirm all stores worked
     failed_store = False
     for line in assignments.splitlines():
         key, value = line.split('=', 1)
@@ -168,6 +171,13 @@ def store_variables_and_write(assignments, source, ns):
            print(f"  #{row_number} Missing Value. Tried {value}", file=sys.stderr)
 
 def handle_tests(row_number, row, xmlfile):
+    """
+    Given a row within the CSV, and an xmlfile, check if the assertions are valid,
+    and log the result to stdout. See README for more information on assertions
+    row_number: Row number within csv, used for logging purposes
+    row: dict like object extracted from csv.
+    xmlfile: XML file used to resolve xpaths and variables
+    """
     namespaces = string_to_dictionary(row['NS'])
     failed_test = False
     for line in row['Test'].splitlines():
