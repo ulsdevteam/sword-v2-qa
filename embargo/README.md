@@ -12,9 +12,9 @@
 
 ## What it does
 
-This script will create two new works in the specified Admin Set: one embargoed work, and one open work.  Each work has mulitple filesets.  It will check the visiblity and embargo values returned in the ATOM, for the work and for the filesets.
+This script will create two new works in the specified Admin Set: one embargoed work, and one open work.  Each work has mulitple filesets.  It will check the visibility and embargo values returned in the ATOM, for the work and for the filesets.
 
-It will then modify the works, opening the embargoed work and adding an embargo to the open work.  It will again check the visiblity and embargo values returned in the ATOM, for the work and for the filesets.  Finally, it will modify the last fileset, adding or removing the embargo.
+It will then modify the works, opening the embargoed work and adding an embargo to the open work.  It will again check the visibility and embargo values returned in the ATOM, for the work and for the filesets.  Finally, it will modify the last fileset, adding or removing the embargo.
 
 Some progess messages and any unexpected results will be output to STDOUT.
 
