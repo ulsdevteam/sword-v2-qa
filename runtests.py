@@ -109,34 +109,11 @@ def test_http_request(row_number, row):
         print(f"  #{row_number} Bad Code. Expected {row['Expected']}", file=sys.stderr)
         print(f"  #{row_number} Bad Code. Found {response.status_code}", file=sys.stderr)
     else:
-        failed_test = False
         xmlfile = response.content
-        for line in row['Test'].splitlines():
-            expected, xpath = line.split('=', 1)
-            expected = variable_replace(expected)
-            xpath = variable_replace(xpath)
-            value = xpath_lookup(xmlfile, xpath, namespaces)
-            if not (expected == '*' and value is not None) and not expected == value:
-                if not failed_test:
-                    print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
-                    write_to_tempfile(row_number, response.content)
-                print(f"  #{row_number} Bad Data. Tried {xpath}", file=sys.stderr)
-                print(f"  #{row_number} Bad Data. Expected {expected}", file=sys.stderr)
-                print(f"  #{row_number} Bad Data. Found {value}", file=sys.stderr)
-                failed_test = True
-        if not failed_test:
-            print(f"#{row_number} Success. {row['Title']}")
+        handle_tests(row_number, row, xmlfile)
     if row['Store']:
-        store_variables(row['Store'], xmlfile, namespaces)
-        failed_store = False
-        for line in row['Store'].splitlines():
-            key, value = line.split('=', 1)
-            if not variables[key]:
-               if not failed_store:
-                    print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
-                    write_to_tempfile(row_number, response.content)
-               failed_store = True
-               print(f"  #{row_number} Missing Value. Tried {value}", file=sys.stderr)
+        output_files = store_variables_and_writefiles(row['Store'], xmlfile, namespaces)
+        # xml file is response.content so is written to files
 
 def string_to_dictionary(string):
     """
@@ -151,22 +128,99 @@ def string_to_dictionary(string):
             dictionary[key] = value
     return dictionary
 
-def store_variables(assignments, source, ns):
+def store_variables_and_writefiles(assignments, source, ns):
     """
-    Given variable names and xpaths, with an XML document and namespaces, find the value of the xpath in the XML and assign it to the variable name.  Modifies the global variables.
-    assignments: str A multiline mapping of varible name to xpath, as "FOO_BAR=/fizz:foo/buzz:bar[@att='val']"
+    Given filepaths, variable names and xpaths, with an XML document and namespaces, find the value of the xpath in the XML and assign it to the variable name, and store the result in filepaths provided. Modifies the global variables. 
+    Writes to provided files :w
+
+    assignments: str A multiline sequence of either file paths as "/path/to/file=*" or mappings of varible names to xpaths, as "FOO_BAR=/fizz:foo/buzz:bar[@att='val']"
     source: bytes The XML against which to evaluate the xpaths
     ns: dict Key-value pairs of namespace aliases to URIs as used in the xpath
     return: None
     """
+    output_paths = []
+    # extract and assign variables, and extract file paths
     for line in assignments.splitlines():
         variable, xpath = line.split('=', 1)
+        if xpath == '*':
+            output_paths.append(variable)
+            continue
         xpath = variable_replace(xpath)
         value = xpath_lookup(source, xpath, ns)
         if value:
             variables[variable] = value
         else:
             variables.pop(variable, None)
+    
+    # emit file paths
+    for path in output_paths:
+        with open(path, 'wb') as fw:
+            fw.write(source)
+    
+    # confirm all stores worked
+    failed_store = False
+    for line in assignments.splitlines():
+        key, value = line.split('=', 1)
+        if value == '*':
+            continue
+        if not variables[key]:
+           if not failed_store:
+                print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
+                write_to_tempfile(row_number, response.content)
+           failed_store = True
+           print(f"  #{row_number} Missing Value. Tried {value}", file=sys.stderr)
+
+def handle_tests(row_number, row, xmlfile):
+    """
+    Given a row within the CSV, and an xmlfile, check if the assertions are valid,
+    and log the result to stdout. See README for more information on assertions
+    row_number: Row number within csv, used for logging purposes
+    row: dict like object extracted from csv.
+    xmlfile: XML file used to resolve xpaths and variables
+    """
+    namespaces = string_to_dictionary(row['NS'])
+    failed_test = False
+    for line in row['Test'].splitlines():
+        expected, xpath = line.split('=', 1)
+        expected = variable_replace(expected)
+        xpath = variable_replace(xpath)
+        value = xpath_lookup(xmlfile, xpath, namespaces)
+        if not (expected == '*' and value is not None) and not expected == value:
+            if not failed_test:
+                print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
+                write_to_tempfile(row_number, xmlfile)
+            print(f"  #{row_number} Bad Data. Tried {xpath}", file=sys.stderr)
+            print(f"  #{row_number} Bad Data. Expected {expected}", file=sys.stderr)
+            print(f"  #{row_number} Bad Data. Found {value}", file=sys.stderr)
+            failed_test = True
+    if not failed_test:
+        print(f"#{row_number} Success. {row['Title']}")
+
+def apply_xslt(row_number, row):
+    """
+    Process a CSV row as an XSLT method.
+    Payload is transformed by URI. Transformed files are stored in paths (described 
+        as /path/to/file=*) within Store. Rest of Store assignments are recorded.
+    row_number: CSV row number
+    row: Dictionary object that contains csv row data
+    """
+    xml_file, xslt_file = row['Payload'], row['URI']
+    
+       
+    namespaces = string_to_dictionary(row['NS'])
+    #output_files = store_variables_and_writefiles(row['Store'], xml_source, namespaces)
+    #store_variables_and_writefiles(assignments, xslt_source, namespaces)
+    
+    xml = etree.parse(xml_file)
+    xsl = etree.parse(xslt_file)
+    transform = etree.XSLT(xsl)
+    output = transform(xml)
+    xml_output = etree.tostring(output)
+    store_variables_and_writefiles(row['Store'], xml_output, namespaces)
+    handle_tests(row_number, row, xml_output)
+
+
+    
 
 def main():
     """
@@ -181,10 +235,16 @@ def main():
             print(f"#{row_number} Processing. {row['Title']}", file=sys.stderr)
             with open(row['URI'], 'rb') as fh:
                 source_text = fh.read()
-                store_variables(row['Store'], source_text, namespaces)
+                store_variables_and_writefiles(row['Store'], source_text, namespaces)
         elif row['Method'] in ['GET', 'POST', 'PUT']:
             try:
                 test_http_request(row_number, row)
+            except KeyError as e:
+                print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
+                print(f"  #{row_number} Variable Requirement. Missing {e}", file=sys.stderr)
+        elif row['Method'] == 'XSLT':
+            try:
+                apply_xslt(row_number, row)
             except KeyError as e:
                 print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
                 print(f"  #{row_number} Variable Requirement. Missing {e}", file=sys.stderr)
