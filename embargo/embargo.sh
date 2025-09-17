@@ -68,7 +68,7 @@ if [[ 'open' != "$RESULT" ]]; then echo "work visibility should be open"; fi
 echo Check that the other embargo tags are present
 for field in 'visibility_after_embargo' 'visibility_during_embargo' 'embargo_release_date'
 do
-  RESULT=`xmllint --xpath '//metadata/'$field ../temp/$WORKID.metadata.xml 2> /dev/null`
+  RESULT=`xmllint --xpath '//metadata/'$field ../temp/$WORKID.put.validate.metadata.xml 2> /dev/null`
   if [[ ! -z "$RESULT" ]]; then echo "work $field found when unexpected"; fi
 done
 
@@ -179,7 +179,7 @@ if [[ 'embargo' != "$RESULT" ]]; then echo "work visibility should be embargo"; 
 echo Check that the other embargo tags are present
 for field in 'visibility_after_embargo' 'visibility_during_embargo' 'embargo_release_date'
 do
-  RESULT=`xmllint --xpath '//metadata/'$field ../temp/$WORKID.metadata.xml 2> /dev/null`
+  RESULT=`xmllint --xpath '//metadata/'$field ../temp/$WORKID.put.validate.metadata.xml 2> /dev/null`
   if [[ -z "$RESULT" ]]; then echo "work $field missing"; fi
 done
 

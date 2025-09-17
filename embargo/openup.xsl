@@ -5,7 +5,7 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="embargo_id|embargo_release_date|visibility_during_embargo|visibility_after_embargo|lease_expiration_date|visiblity_during_lease|visibility_after_lease" />
+  <xsl:template match="embargo_id|embargo_release_date|visibility_during_embargo|visibility_after_embargo|lease_expiration_date|visibility_during_lease|visibility_after_lease" />
 
   <xsl:template match="visibility">
     <xsl:copy>
