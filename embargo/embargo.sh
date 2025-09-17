@@ -107,7 +107,7 @@ echo Check the visibility value
 RESULT=`xmllint --xpath '//metadata/visibility/text()' ../temp/$fid.put.validate.metadata.xml`
 if [[ 'open' != "$RESULT" ]]; then echo "fileset $fid visibility should be open"; fi
 echo Check that the other embargo tags are absent
-for field in 'visibility_after_embargo' 'visibility_during_embargo' 'embargo_release_date' 'visibilty_during_lease' 'visibility_after_lease' 'lease_expiration_date'
+for field in 'visibility_after_embargo' 'visibility_during_embargo' 'embargo_release_date' 'visibility_during_lease' 'visibility_after_lease' 'lease_expiration_date'
 do
   RESULT=`xmllint --xpath '//metadata/'$field ../temp/$fid.put.validate.metadata.xml 2> /dev/null`
   if [[ ! -z "$RESULT" ]]; then echo "fileset $fid $field found when unexpected"; fi
@@ -136,7 +136,7 @@ echo Check the visibility value
 RESULT=`xmllint --xpath '//metadata/visibility/text()' ../temp/$WORKID.metadata.xml`
 if [[ 'open' != "$RESULT" ]]; then echo "work visibility should be open"; fi
 echo Check that the other embargo tags are not present
-for field in 'visibility_after_embargo' 'visibility_during_embargo' 'embargo_release_date' 'visibilty_during_lease' 'visibility_after_lease' 'lease_expiration_date'
+for field in 'visibility_after_embargo' 'visibility_during_embargo' 'embargo_release_date' 'visibility_during_lease' 'visibility_after_lease' 'lease_expiration_date'
 do
   RESULT=`xmllint --xpath '//metadata/'$field ../temp/$WORKID.metadata.xml 2> /dev/null`
   if [[ ! -z "$RESULT" ]]; then echo "work $field found when not expected"; fi
@@ -155,7 +155,7 @@ do
   RESULT=`xmllint --xpath '//metadata/visibility/text()' ../temp/$fid.metadata.xml`
   if [[ 'open' != "$RESULT" ]]; then echo "fileset $fid visibility should be open"; fi
   # Check the other embargo tags are present
-  for field in 'visibility_after_embargo' 'visibility_during_embargo' 'embargo_release_date' 'visibilty_during_lease' 'visibility_after_lease' 'lease_expiration_date'
+  for field in 'visibility_after_embargo' 'visibility_during_embargo' 'embargo_release_date' 'visibility_during_lease' 'visibility_after_lease' 'lease_expiration_date'
   do
     RESULT=`xmllint --xpath '//metadata/'$field ../temp/$fid.metadata.xml 2> /dev/null`
     if [[ ! -z "$RESULT" ]]; then echo "fileset $fid $field found when unexpected"; fi
@@ -196,7 +196,7 @@ do
   RESULT=`xmllint --xpath '//metadata/visibility/text()' ../temp/$fid.metadata.xml`
   if [[ 'open' != "$RESULT" ]]; then echo "fileset $fid visibility should be open"; fi
   # Check that no embargo tags are present
-  for field in 'visibility_after_embargo' 'visibility_during_embargo' 'embargo_release_date' 'visibilty_during_lease' 'visibility_after_lease' 'lease_expiration_date'
+  for field in 'visibility_after_embargo' 'visibility_during_embargo' 'embargo_release_date' 'visibility_during_lease' 'visibility_after_lease' 'lease_expiration_date'
   do
     RESULT=`xmllint --xpath '//metadata/'$field ../temp/$fid.metadata.xml 2> /dev/null`
     if [[ ! -z "$RESULT" ]]; then echo "fileset $fid $field found when unexpected"; fi
@@ -223,5 +223,3 @@ do
   RESULT=`xmllint --xpath '//metadata/'$field ../temp/$fid.put.validate.metadata.xml 2> /dev/null`
   if [[ -z "$RESULT" ]]; then echo "fileset $fid $field missing"; fi
 done
-
-
