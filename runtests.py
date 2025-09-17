@@ -130,9 +130,7 @@ def string_to_dictionary(string):
 
 def store_variables_and_writefiles(assignments, source, ns):
     """
-    Given filepaths, variable names and xpaths, with an XML document and namespaces, find the value of the xpath in the XML and assign it to the variable name, and store the result in filepaths provided. Modifies the global variables. 
-    Writes to provided files :w
-
+    Given filepaths, variable names and xpaths, with an XML document and namespaces, find the value of the xpath in the XML and assign it to the variable name, and store the result in filepaths provided. Modifies the global variables. Writes to provided files
     assignments: str A multiline sequence of either file paths as "/path/to/file=*" or mappings of varible names to xpaths, as "FOO_BAR=/fizz:foo/buzz:bar[@att='val']"
     source: bytes The XML against which to evaluate the xpaths
     ns: dict Key-value pairs of namespace aliases to URIs as used in the xpath
