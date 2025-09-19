@@ -1,0 +1,71 @@
+{
+"Headers": ["Title","Method","URI","Headers",
+    "Form","Payload","Expected","Store","Test","NS"],
+"steps": [ {
+    "Title": "Load Configuration File",
+    "Method": "FILE",
+    "URI": "config.xml" ,
+    "Store": ["BASE_URL=/config/base_url", 
+		"DEFAULT_ADMIN_SET=/config/default_admin_set",	
+		"COLLECTION_ID=/config/rw_collection_id",
+		"RO_COLLECTION_ID=/config/ro_collection_id",
+		"DENY_COLLECTION_ID=/config/deny_collection_id",
+		"API_KEY=/config/api_key"]
+},
+{ 
+    "Title": "Post a SimpleZip with embargo",
+    "Method": "POST",
+    "URI": "$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works",
+    "Headers":["Api-key: $API_KEY"],
+    "Form": ["payload=files/EtdEmbargo.zip"],
+    "Expected":201,
+    "Store":["temp/post.body.out=*", 
+	"WORKID=//*[local-name() = \"id\"]/text()", 
+	"WORKEDIT=//*[local-name() = \"link\" and @rel=\"edit\"]/@href"],
+    "NS":"atom=http://www.w3.org/2005/Atom"	
+},
+{
+    "Title": "Extract Filesets created under this work",
+    "Method": "XSLT",
+    "URI": "embargo/get-first-fileset.xsl",
+    "Payload": "temp/post.body.out",
+    "Store":["FILESET_URL=//resultroot/*[1]/text()"]
+},
+{
+    "Title": "Extract ATOM response to metadata format",
+    "Method": "XSLT",
+    "URI": "embargo/h4cmeta.xsl",
+    "Payload": "temp/post.body.out",
+    "Store":["temp/post.metadata.xml=*"],
+    "Test": ["embargo=//metadata/visibility/text()", 
+        "*=//metadata/visibility_after_embargo", 
+        "*=//metadata/visibility_during_embargo", 
+        "*=//metadata/embargo_release_date"
+]
+},
+{
+    "Title": "Fileset should inherit same embargo...GET Fileset",
+    "Method": "GET",
+    "Headers": ["Api-key: $API_KEY"],
+    "URI": "$FILESET_URL",
+    "Expected": 200,
+    "Store":["temp/fileset.body.out=*"],
+    "Test": ["embargo=//metadata/visibility/text()", 
+	"*=//metadata/visibility_after_embargo", 
+	"*=//metadata/visibility_during_embargo", 
+	"*=//metadata/embargo_release_date"
+]
+},
+{
+    "Title": "Extract ATOM response to metadata and check embargo for Fileset",
+    "Method": "XSLT",
+    "URI": "embargo/h4cmeta.xsl",
+    "Payload": "temp/fileset.body.out",
+    "Store":["temp/fileset.metadata.xml=*"],
+    "Test": ["embargo=//metadata/visibility/text()", 
+	"*=//metadata/visibility_after_embargo", 
+	"*=//metadata/visibility_during_embargo", 
+	"*=//metadata/embargo_release_date"
+]
+}
+]}

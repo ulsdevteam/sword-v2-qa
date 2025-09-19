@@ -1,0 +1,23 @@
+Title,Method,URI,Headers,Form,Payload,Expected,Store,Test,NS
+Load Configuration File,FILE,config.xml,,,,,"BASE_URL=/config/base_url
+DEFAULT_ADMIN_SET=/config/default_admin_set
+COLLECTION_ID=/config/rw_collection_id
+RO_COLLECTION_ID=/config/ro_collection_id
+DENY_COLLECTION_ID=/config/deny_collection_id
+API_KEY=/config/api_key",,
+Post a SimpleZip with embargo,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works,Api-key: $API_KEY,payload=files/EtdEmbargo.zip,,201,"temp/post.body.out=*
+WORKID=//*[local-name() = ""id""]/text()
+WORKEDIT=//*[local-name() = ""link"" and @rel=""edit""]/@href",,atom=http://www.w3.org/2005/Atom
+Extract Filesets created under this work,XSLT,embargo/get-first-fileset.xsl,,,temp/post.body.out,,FILESET_URL=//resultroot/*[1]/text(),,
+Extract ATOM response to metadata format,XSLT,embargo/h4cmeta.xsl,,,temp/post.body.out,,temp/post.metadata.xml=*,"embargo=//metadata/visibility/text()
+*=//metadata/visibility_after_embargo
+*=//metadata/visibility_during_embargo
+*=//metadata/embargo_release_date",
+Fileset should inherit same embargo...GET Fileset,GET,$FILESET_URL,Api-key: $API_KEY,,,200,temp/fileset.body.out=*,"embargo=//metadata/visibility/text()
+*=//metadata/visibility_after_embargo
+*=//metadata/visibility_during_embargo
+*=//metadata/embargo_release_date",
+Extract ATOM response to metadata and check embargo for Fileset,XSLT,embargo/h4cmeta.xsl,,,temp/fileset.body.out,,temp/fileset.metadata.xml=*,"embargo=//metadata/visibility/text()
+*=//metadata/visibility_after_embargo
+*=//metadata/visibility_during_embargo
+*=//metadata/embargo_release_date",
