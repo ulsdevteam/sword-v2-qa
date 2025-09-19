@@ -12,9 +12,9 @@ csv_headers = ("Title","Method","URI","Headers",
 
 
 def usage():
-    print(f"Usage: python3 {__file__} <input.json>")
+    print(f"Usage: python3 {__file__} <input.json>", file=sys.stderr)
     print("Read json file, and convert it into a csv that can be fed into" 
-    "runtests.py. CSV is written to stdout.")
+    "runtests.py. CSV is written to stdout.", file=sys.stderr)
 
 def main():
     """
