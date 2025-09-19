@@ -214,6 +214,8 @@ def apply_xslt(row_number, row):
     transform = etree.XSLT(xsl)
     output = transform(xml)
     xml_output = etree.tostring(output)
+    if xml_output is None:
+        xml_output = output # if etree.tostring fails
     store_variables_and_writefiles(row['Store'], xml_output, namespaces)
     handle_tests(row_number, row, xml_output)
 

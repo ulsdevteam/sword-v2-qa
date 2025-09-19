@@ -18,7 +18,7 @@
     "URI": "$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works",
     "Headers":["Api-key: $API_KEY"],
     "Form": ["payload=files/EtdEmbargo.zip"],
-    "Expected":200,
+    "Expected":201,
     "Store":["temp/post.body.out=*", 
 	"WORKID=//*[local-name() = \"id\"]/text()", 
 	"WORKEDIT=//*[local-name() = \"link\" and @rel=\"edit\"]/@href"],
@@ -27,20 +27,45 @@
 {
     "Title": "Extract Filesets created under this work",
     "Method": "XSLT",
-    "URI": "temp/post.body.out",
-    "Payload": "embargo/get-filesets.xsl",
-    "Store":["temp/FILESETS=*"]
+    "URI": "embargo/get-first-fileset.xsl",
+    "Payload": "temp/post.body.out",
+    "Store":["/dev/tty=*", "FILESET_URL=//resultroot/*[1]/text()"]
 },
 {
     "Title": "Extract ATOM response to metadata format",
     "Method": "XSLT",
-    "URI": "temp/post.body.out",
-    "Payload": "embargo/h4cmeta.xsl",
-    "Store":["temp/post.metadata.xml"],
+    "URI": "embargo/h4cmeta.xsl",
+    "Payload": "temp/post.body.out",
+    "Store":["temp/post.metadata.xml=*"],
     "Test": ["embargo=//metadata/visibility/text()", 
         "*=//metadata/visibility_after_embargo", 
         "*=//metadata/visibility_during_embargo", 
         "*=//metadata/embargo_release_date"
+]
+},
+{
+    "Title": "Fileset should inherit same embargo...GET Fileset",
+    "Method": "GET",
+    "Headers": ["Api-key: $API_KEY"],
+    "URI": "$FILESET_URL",
+    "Expected": 200,
+    "Store":["temp/fileset.body.out=*"],
+    "Test": ["embargo=//metadata/visibility/text()", 
+	"*=//metadata/visibility_after_embargo", 
+	"*=//metadata/visibility_during_embargo", 
+	"*=//metadata/embargo_release_date"
+]
+},
+{
+    "Title": "Extract ATOM response to metadata and check embargo for Fileset",
+    "Method": "XSLT",
+    "URI": "embargo/h4cmeta.xsl",
+    "Payload": "temp/fileset.body.out",
+    "Store":["temp/fileset.metadata.xml=*"],
+    "Test": ["embargo=//metadata/visibility/text()", 
+	"*=//metadata/visibility_after_embargo", 
+	"*=//metadata/visibility_during_embargo", 
+	"*=//metadata/embargo_release_date"
 ]
 }
 ]}
