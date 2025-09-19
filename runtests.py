@@ -150,10 +150,14 @@ def store_variables_and_writefiles(assignments, source, ns):
         else:
             variables.pop(variable, None)
     
+    if source is None:
+        print("ERROR: expected data, but found None")
+        print("Ignoring file writes")
     # emit file paths
-    for path in output_paths:
-        with open(path, 'wb') as fw:
-            fw.write(source)
+    else:
+        for path in output_paths:
+            with open(path, 'wb') as fw:
+                fw.write(source)
     
     # confirm all stores worked
     failed_store = False
@@ -164,7 +168,7 @@ def store_variables_and_writefiles(assignments, source, ns):
         if not variables[key]:
            if not failed_store:
                 print(f"#{row_number} Failed. {row['Title']}", file=sys.stderr)
-                write_to_tempfile(row_number, response.content)
+                write_to_tempfile(row_number, xmlfile if xmlfile is not None else b"None")
            failed_store = True
            print(f"  #{row_number} Missing Value. Tried {value}", file=sys.stderr)
 

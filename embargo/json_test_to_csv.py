@@ -1,5 +1,5 @@
 """
-Read json file, and convert it into a csv that can be fed into 
+Read json file (provided in argv), and convert it into a csv that can be fed into 
 runtests.py. CSV is written to stdout.
 """
 
@@ -17,6 +17,15 @@ def usage():
     "runtests.py. CSV is written to stdout.")
 
 def main():
+    """
+    JSON assumed to have a base object, with a field "steps" which is an 
+    array of json objects. Each of the json objects corresponds to a row of the
+    csv. If a field of a json object is not specified, it is assumed to be empty.
+    Strings and ints are treated in trivial ways. JSON arrays are translated into
+    multiline sequences within CSV.
+    
+    See ../README.md for details about CSV
+    """
     if len(sys.argv) != 2:
         print("Invalid Number of arguments")
         usage()

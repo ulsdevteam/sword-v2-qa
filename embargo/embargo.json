@@ -29,7 +29,7 @@
     "Method": "XSLT",
     "URI": "embargo/get-first-fileset.xsl",
     "Payload": "temp/post.body.out",
-    "Store":["/dev/tty=*", "FILESET_URL=//resultroot/*[1]/text()"]
+    "Store":["FILESET_URL=//resultroot/*[1]/text()"]
 },
 {
     "Title": "Extract ATOM response to metadata format",
