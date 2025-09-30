@@ -1,0 +1,28 @@
+{
+"Headers": ["Title","Method","URI","Headers",
+    "Form","Payload","Expected","Store","Test","NS"],
+"steps": [ {
+    "Title": "Load Configuration File",
+    "Method": "FILE",
+    "URI": "config.xml" ,
+    "Store": ["BASE_URL=/config/base_url", 
+		"DEFAULT_ADMIN_SET=/config/default_admin_set",	
+		"COLLECTION_ID=/config/rw_collection_id",
+		"RO_COLLECTION_ID=/config/ro_collection_id",
+		"DENY_COLLECTION_ID=/config/deny_collection_id",
+		"API_KEY=/config/api_key", 
+		"AUTH_KEY=/config/basic_auth"]
+},
+{
+    "Title": "Check default admin set for id in feed and check if content url public",
+    "Method": "GET",
+    "URI": "$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET", 
+    "Headers": ["Api-key: $API_KEY", "Content-type: application/xml"],
+    "Expected": 200,
+    "Store": ["temp/admin_get=*", "CONTENT_URL_FIRST=(//r:content)[1]/@src", 
+               "CONTENT_URL_LAST=(//r:content)[last()]/@src"],
+    "Test": ["*=//r:feed/r:id", "True=contains((//r:content)[1]/@src, \"concern\")"], 
+    "NS": "r=http://www.w3.org/2005/Atom"
+}
+]
+}
