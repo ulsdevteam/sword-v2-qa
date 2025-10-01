@@ -256,4 +256,4 @@ def main():
             print(f"Method not defined for {row_number}", file=sys.stderr)
 
 if __name__ == '__main__':
-    main();
+    main()

@@ -1,0 +1,10 @@
+Title,Method,URI,Headers,Form,Payload,Expected,Store,Test,NS
+Load Configuration File,FILE,config.xml,,,,,"BASE_URL=/config/base_url
+DEFAULT_ADMIN_SET=/config/default_admin_set
+COLLECTION_ID=/config/rw_collection_id
+RO_COLLECTION_ID=/config/ro_collection_id
+DENY_COLLECTION_ID=/config/deny_collection_id
+API_KEY=/config/api_key",,
+Post a SimpleZip to default set,POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works,Api-key: $API_KEY,payload=files/EtdEmbargo.zip,,201,temp/post.body.out=*,,atom=http://www.w3.org/2005/Atom
+Post a SimpleZip to named collection,POST,$BASE_URL/sword/v2/collections/$COLLECTION_ID/works,Api-key: $API_KEY,payload=files/EtdEmbargo.zip,,201,temp/post.body.out=*,,atom=http://www.w3.org/2005/Atom
+Post a SimpleZip to read only collection,POST,$BASE_URL/sword/v2/collections/$RO_COLLECTION_ID/works,Api-key: $API_KEY,payload=files/EtdEmbargo.zip,,403,temp/post.body.out=*,,atom=http://www.w3.org/2005/Atom
