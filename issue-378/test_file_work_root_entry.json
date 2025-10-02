@@ -19,12 +19,15 @@
     "Headers": ["Api-key: $API_KEY", "Content-type: application/xml"],
     "Expected": 200,
     "Store": ["temp/admin_get=*", 
-                "FILESET=(//r:link[contains(@href, \"file_sets\")])[1]/@href"],
+                "WORK=(//r:link[contains(@href, \"works\")])[1]/@href",
+                "FILESET=(//r:link[contains(@href, \"file_sets\")])[1]/@href"
+                
+                ],
     "Test": ["*=//r:feed/r:id"], 
     "NS": "r=http://www.w3.org/2005/Atom"
 },
 {
-    "Title": "Check file root node",
+    "Title": "Check file root node fileset get",
     "Method": "GET",
     "URI": "$FILESET", 
     "Headers": ["Api-key: $API_KEY", "Content-type: application/xml"],
@@ -32,5 +35,65 @@
     "Store": ["temp/example_fileset=*"],
     "Test": ["entry=local-name(/*)"], 
     "NS": "r=http://www.w3.org/2005/Atom"
+},
+{
+    "Title": "Check file root node work get",
+    "Method": "GET",
+    "URI": "$WORK", 
+    "Headers": ["Api-key: $API_KEY", "Content-type: application/xml"],
+    "Expected": 200,
+    "Store": ["temp/example_work=*"],
+    "Test": ["entry=local-name(/*)"], 
+    "NS": "r=http://www.w3.org/2005/Atom"
+},
+{
+    "Title": "Modify file metadata check file root node (PUT)",
+    "Method": "PUT",
+    "URI": "$WORK", 
+    "Headers": ["Api-key: $API_KEY", "Content-type: application/xml", 
+        "Packaging: application/atom+xml;type=entry"],
+    "Payload": "files/generic.full.xml",
+    "Expected": 200,
+    "Store": ["temp/example_work=*"],
+    "Test": ["entry=local-name(/*)"], 
+    "NS": "r=http://www.w3.org/2005/Atom"
+},
+{
+    "Title": "Modify file metadata check file root node (POST)",
+    "Method": "POST",
+    "URI": "$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/", 
+    "Headers": ["Api-key: $API_KEY", "Content-type: application/xml", 
+        "Packaging: application/atom+xml;type=entry"],
+    "Payload": "files/generic.minimal.xml",
+    "Expected": 201,
+    "Store": ["temp/work_submit=*"],
+    "Test": ["entry=local-name(/*)"], 
+    "NS": "atom=http://www.w3.org/2005/Atom"
+},
+{
+    "Title": "Modify file metadata check file root node (POST)",
+    "Method": "POST",
+    "URI": "$FILESET", 
+    "Headers": ["Api-key: $API_KEY", "Content-type: application/xml", 
+        "Packaging: application/atom+xml;type=entry"],
+    "Payload": "files/generic.minimal.xml",
+
+    "Expected": 201,
+    "Store": ["temp/work_submit=*"],
+    "Test": ["entry=local-name(/*)"], 
+    "NS": "atom=http://www.w3.org/2005/Atom"
+},
+{
+    "Title": "Modify file metadata check file root node (PUT)",
+    "Method": "PUT",
+    "URI": "$FILESET", 
+    "Headers": ["Api-key: $API_KEY", "Content-type: application/xml", 
+        "Packaging: application/atom+xml;type=entry"],
+    "Payload": "files/generic.full.xml",
+    "Expected": 200,
+    "Store": ["temp/example_work=*"],
+    "Test": ["entry=local-name(/*)"], 
+    "NS": "r=http://www.w3.org/2005/Atom"
 }
+
 ]}
