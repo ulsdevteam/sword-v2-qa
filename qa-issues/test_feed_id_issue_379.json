@@ -23,6 +23,28 @@
                "CONTENT_URL_LAST=(//r:content)[last()]/@src"],
     "Test": ["*=//r:feed/r:id", "True=contains((//r:content)[1]/@src, \"concern\")"], 
     "NS": "r=http://www.w3.org/2005/Atom"
+},
+{
+    "Title": "Check entries describe themselves correctly i.e. content points to self id",
+    "Method": "FILE",
+    "URI": "temp/admin_get",
+    "Test": ["True=count(//r:entry)=count((//r:entry)[contains(./r:content/@src, ./r:id)])", 
+            "True=count(//r:entry)=count(//r:entry[contains(./r:link[@rel=\"edit\"]/@href, ./r:id)])"],
+    "NS": "r=http://www.w3.org/2005/Atom"
+},
+{
+    "Title": "Check feed describes itself correctly",
+    "Method": "FILE",
+    "URI": "temp/admin_get",
+    "Test": ["True=contains(//r:feed/r:link[@rel=\"edit\"]/@href, /r:feed/r:id)"],
+    "NS": "r=http://www.w3.org/2005/Atom"
+},
+{
+    "Title": "Check all entries that have child file sets have file set links",
+    "Method": "FILE",
+    "URI":"temp/admin_get",
+    "Test": ["True=count(//r:entry/r:link[@rel=\"edit-media\"])=count(//r:entry/r:link[@rel=\"edit-media\"][contains(./@href, \"file_sets\")])"],
+    "NS": "r=http://www.w3.org/2005/Atom"
 }
 ]
 }

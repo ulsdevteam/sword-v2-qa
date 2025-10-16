@@ -1,0 +1,17 @@
+Title,Method,URI,Headers,Form,Payload,Expected,Store,Test,NS
+Load Configuration File,FILE,config.xml,,,,,"BASE_URL=/config/base_url
+DEFAULT_ADMIN_SET=/config/default_admin_set
+COLLECTION_ID=/config/rw_collection_id
+RO_COLLECTION_ID=/config/ro_collection_id
+DENY_COLLECTION_ID=/config/deny_collection_id
+API_KEY=/config/api_key
+AUTH_KEY=/config/basic_auth",,
+Check default admin set for id in feed and check if content url public,GET,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET,"Api-key: $API_KEY
+Content-type: application/xml",,,200,"temp/admin_get=*
+CONTENT_URL_FIRST=(//r:content)[1]/@src
+CONTENT_URL_LAST=(//r:content)[last()]/@src","*=//r:feed/r:id
+True=contains((//r:content)[1]/@src, ""concern"")",r=http://www.w3.org/2005/Atom
+Check entries describe themselves correctly i.e. content points to self id,FILE,temp/admin_get,,,,,,"True=count(//r:entry)=count((//r:entry)[contains(./r:content/@src, ./r:id)])
+True=count(//r:entry)=count(//r:entry[contains(./r:link[@rel=""edit""]/@href, ./r:id)])",r=http://www.w3.org/2005/Atom
+Check feed describes itself correctly,FILE,temp/admin_get,,,,,,"True=contains(//r:feed/r:link[@rel=""edit""]/@href, /r:feed/r:id)",r=http://www.w3.org/2005/Atom
+Check all entries that have child file sets have file set links,FILE,temp/admin_get,,,,,,"True=count(//r:entry/r:link[@rel=""edit-media""])=count(//r:entry/r:link[@rel=""edit-media""][contains(./@href, ""file_sets"")])",r=http://www.w3.org/2005/Atom

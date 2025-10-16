@@ -1,0 +1,11 @@
+Title,Method,URI,Headers,Form,Payload,Expected,Store,Test,NS
+Load Configuration File,FILE,config.xml,,,,,"BASE_URL=/config/base_url
+DEFAULT_ADMIN_SET=/config/default_admin_set
+COLLECTION_ID=/config/rw_collection_id
+RO_COLLECTION_ID=/config/ro_collection_id
+DENY_COLLECTION_ID=/config/deny_collection_id
+API_KEY=/config/api_key
+AUTH_KEY=/config/basic_auth",,
+Get service document and check type in correct namespace,GET,$BASE_URL/sword/v2/service_document,"Api-key: $API_KEY
+Content-type: application/xml",,,200,temp/service_document=*,True=count(//h:type)=1 and count(//a:type)=0,"h=https://hykucommons.org/schema/system
+a=http://www.w3.org/2005/Atom"
