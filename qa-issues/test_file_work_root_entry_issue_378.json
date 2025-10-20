@@ -20,7 +20,8 @@
     "Expected": 200,
     "Store": ["temp/admin_get=*", 
                 "WORK=(//r:link[contains(@href, \"works\")])[1]/@href",
-                "FILESET=(//r:link[contains(@href, \"file_sets\")])[1]/@href"
+                "FILESET=(//r:link[contains(@href, \"file_sets\")])[1]/@href",
+"FILEID=substring-after((//r:link[contains(@href, \"file_sets\")])[1]/@href, \"file_sets/\")"
                 
                 ],
     "Test": ["*=//r:feed/r:id"], 
@@ -85,7 +86,7 @@
 {
     "Title": "Modify file metadata check file root node (POST)",
     "Method": "POST",
-    "URI": "$WORK/file_sets/", 
+    "URI": "$FILESET/$FILEID", 
     "Headers": ["Api-key: $API_KEY", "Content-type: application/xml", 
         "Packaging: application/atom+xml;type=entry"],
     "Payload": "files/generic.minimal.xml",

@@ -8,7 +8,8 @@ API_KEY=/config/api_key",,
 Check default admin set for id in feed,GET,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET,"Api-key: $API_KEY
 Content-type: application/xml",,,200,"temp/admin_get=*
 WORK=(//r:link[contains(@href, ""works"")])[1]/@href
-FILESET=(//r:link[contains(@href, ""file_sets"")])[1]/@href",*=//r:feed/r:id,r=http://www.w3.org/2005/Atom
+FILESET=(//r:link[contains(@href, ""file_sets"")])[1]/@href
+FILEID=substring-after((//r:link[contains(@href, ""file_sets"")])[1]/@href, ""file_sets/"")",*=//r:feed/r:id,r=http://www.w3.org/2005/Atom
 Check file root node for fileset is entry: GET,GET,$FILESET,"Api-key: $API_KEY
 Content-type: application/xml",,,200,temp/example_fileset=*,entry=local-name(/*),r=http://www.w3.org/2005/Atom
 Check file root node for work is entry: GET,GET,$WORK,"Api-key: $API_KEY
@@ -22,6 +23,6 @@ Packaging: application/atom+xml;type=entry",,files/generic.full.xml,200,temp/exa
 Post file metadata check work root node (POST),POST,$BASE_URL/sword/v2/collections/$DEFAULT_ADMIN_SET/works/,"Api-key: $API_KEY
 Content-type: application/xml
 Packaging: application/atom+xml;type=entry",,files/generic.minimal.xml,201,temp/work_submit=*,entry=local-name(/*),atom=http://www.w3.org/2005/Atom
-Modify file metadata check file root node (POST),POST,$WORK/file_sets/,"Api-key: $API_KEY
+Modify file metadata check file root node (POST),POST,$FILESET/$FILEID,"Api-key: $API_KEY
 Content-type: application/xml
 Packaging: application/atom+xml;type=entry",,files/generic.minimal.xml,201,temp/work_submit=*,entry=local-name(/*),atom=http://www.w3.org/2005/Atom
