@@ -151,8 +151,9 @@ def store_variables_and_writefiles(assignments, source, ns):
             variables.pop(variable, None)
     
     if source is None:
-        print("ERROR: expected data, but found None")
-        print("Ignoring file writes")
+        print("ERROR: expected data, but found None", file=sys.stderr)
+        print(f"Ignoring file writes to following files {output_paths}",
+                file=sys.stderr)
     # emit file paths
     else:
         for path in output_paths:

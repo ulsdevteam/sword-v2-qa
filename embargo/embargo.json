@@ -20,8 +20,8 @@
     "Form": ["payload=files/EtdEmbargo.zip"],
     "Expected":201,
     "Store":["temp/post.body.out=*", 
-	"WORKID=//*[local-name() = \"id\"]/text()", 
-	"WORKEDIT=//*[local-name() = \"link\" and @rel=\"edit\"]/@href"],
+	"WORKID=//atom:id/text()", 
+	"WORKEDIT=//atom:link[@rel=\"edit\"]/@href"],
     "NS":"atom=http://www.w3.org/2005/Atom"	
 },
 {
