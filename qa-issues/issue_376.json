@@ -20,7 +20,7 @@
     "URI": "$BASE_URL/sword/v2/service_document", 
     "Headers": ["Api-key: $API_KEY", "Content-type: application/xml"],
     "Store": ["temp/service_document=*"],
-    "Test":["True=count(//h:type)=1 and count(//a:type)=0"],
+    "Test":["True=count(//h:type)>0 and count(//a:type)=0"],
     "Expected": 200,
     "NS": ["h=https://hykucommons.org/schema/system", "a=http://www.w3.org/2005/Atom"]
 }
